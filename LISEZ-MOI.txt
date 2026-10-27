@@ -1,0 +1,4 @@
+Elkapø électrique : fichiers à mettre en ligne (tous à la racine, sans sous-dossier)
+
+index.html, manifest.webmanifest, sw.js, et les 5 images .png.
+Ne pas renommer les fichiers.

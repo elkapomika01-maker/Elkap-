@@ -1,8 +1,7 @@
-// Garde l'application disponible sans réseau (les polices se rechargent quand le réseau revient).
-var CACHE = 'elkapo-v1';
+// Réseau d'abord : l'application se met à jour dès qu'il y a du réseau, et reste disponible sans réseau.
+var CACHE = 'elkapo-v3';
 var FILES = ['./', 'index.html', 'manifest.webmanifest',
-  'icon-192.png', 'icon-512.png', 'icon-maskable-512.png',
-  'apple-touch-icon.png', 'favicon-48.png'];
+  'icon-192.png', 'icon-512.png', 'icon-maskable-512.png', 'apple-touch-icon.png', 'favicon-48.png'];
 
 self.addEventListener('install', function (e) {
   e.waitUntil(caches.open(CACHE).then(function (c) { return c.addAll(FILES); }));
@@ -19,15 +18,14 @@ self.addEventListener('activate', function (e) {
 self.addEventListener('fetch', function (e) {
   if (e.request.method !== 'GET') return;
   e.respondWith(
-    caches.match(e.request).then(function (hit) {
-      var net = fetch(e.request).then(function (res) {
-        if (res && (res.status === 200 || res.type === 'opaque')) {
-          var copy = res.clone();
-          caches.open(CACHE).then(function (c) { c.put(e.request, copy); });
-        }
-        return res;
-      }).catch(function () { return hit; });
-      return hit || net;
+    fetch(e.request).then(function (res) {
+      if (res && (res.status === 200 || res.type === 'opaque')) {
+        var copy = res.clone();
+        caches.open(CACHE).then(function (c) { c.put(e.request, copy); });
+      }
+      return res;
+    }).catch(function () {
+      return caches.match(e.request).then(function (hit) { return hit || caches.match('index.html'); });
     })
   );
 });

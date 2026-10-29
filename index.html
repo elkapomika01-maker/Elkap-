@@ -375,7 +375,21 @@ select:focus-visible, input:focus-visible, button:focus-visible, .chip:focus-vis
     <i></i><span class="chip-t" id="chipT">Simulation</span><svg class="ic"><use href="#i-bt"/></svg>
   </button>
 </header>
+<!-- CONNEXION DU COFFRET -->
+<section class="card" id="connexion-coffret">
+  <h2>CONNEXION DU COFFRET</h2>
+  <p>Choisis le mode de communication avec ton coffret.</p>
 
+  <div class="btns">
+    <button type="button" id="usb-btn">🔌 USB — Arduino Mega</button>
+    <button type="button" id="bluetooth-btn">📶 Bluetooth — HC-05</button>
+    <button type="button" id="wifi-btn">📡 Wi-Fi — ESP32</button>
+  </div>
+
+  <p id="connexion-etat" role="status">
+    État : aucun appareil connecté
+  </p>
+</section>
 <main>
 
 <!-- ACCUEIL -->

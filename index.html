@@ -1249,5 +1249,52 @@ select:focus-visible, input:focus-visible, button:focus-visible, .chip:focus-vis
   }
 })();
 </script>
+</script>
+<script>
+(function () {
+  const usb = document.getElementById('usb-btn');
+  const etat = document.getElementById('connexion-etat');
+
+  if (!usb || !etat) return;
+
+  let port = null;
+  let reader = null;
+
+  usb.addEventListener('click', async function () {
+    if (!('serial' in navigator)) {
+      etat.textContent =
+        'USB indisponible. Utilise Chrome ou Edge sur PC.';
+      return;
+    }
+
+    try {
+      port = await navigator.serial.requestPort();
+      await port.open({ baudRate: 9600 });
+
+      etat.textContent =
+        'USB connecté. En attente des données Arduino…';
+
+      const decoder = new TextDecoderStream();
+      port.readable.pipeTo(decoder.writable).catch(() => {});
+      reader = decoder.readable.getReader();
+
+      while (true) {
+        const result = await reader.read();
+        if (result.done) break;
+
+        const lignes = result.value.trim();
+        if (lignes) {
+          etat.textContent = 'USB connecté — Données : ' + lignes;
+        }
+      }
+    } catch (erreur) {
+      etat.textContent =
+        'Connexion USB interrompue ou annulée.';
+    }
+  });
+})();
+</script>
+</body>
+</html>
 </body>
 </html>

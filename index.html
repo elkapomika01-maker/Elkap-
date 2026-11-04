@@ -1248,8 +1248,6 @@ select:focus-visible, input:focus-visible, button:focus-visible, .chip:focus-vis
     window.addEventListener('load', function () { navigator.serviceWorker.register('sw.js').catch(function () {}); });
   }
 })();
-</script>
-</script>
 <script>
 (function () {
   const usb = document.getElementById('usb-btn');
@@ -1291,7 +1289,38 @@ select:focus-visible, input:focus-visible, button:focus-visible, .chip:focus-vis
       etat.textContent =
         'Connexion USB interrompue ou annulée.';
     }
-  })();
+    
 </script>
+  document.getElementById('wifi-btn').addEventListener('click', () => {
+    const statusEl = document.getElementById('connexion-etat');
+    statusEl.textContent = "Connexion Wi-Fi (ESP32) en cours...";
+    statusEl.style.color = "orange";
+
+    const esp32Ip = prompt("Entrez l'adresse IP de l'ESP32 (ex: 192.168.1.50) :", "192.168.1.50");
+    
+    if (!esp32Ip) {
+        statusEl.textContent = "Connexion Wi-Fi annulée";
+        statusEl.style.color = "red";
+        return;
+    }
+
+    fetch(`http://${esp32Ip}/status`, { method: 'GET', mode: 'cors' })
+        .then(response => {
+            if (response.ok) {
+                return response.json();
+            }
+            throw new Error("Erreur de réponse de l'ESP32");
+        })
+        .then(data => {
+            statusEl.textContent = `Connecté en Wi-Fi à l'ESP32 (${esp32Ip})`;
+            statusEl.style.color = "#00ffcc";
+        })
+        .catch(error => {
+            statusEl.textContent = `Erreur Wi-Fi : Impossible de joindre ${esp32Ip}`;
+            statusEl.style.color = "red";
+            console.error(error);
+        });
+});
+  
 </body>
 </html>

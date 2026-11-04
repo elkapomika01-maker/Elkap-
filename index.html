@@ -1293,5 +1293,22 @@ select:focus-visible, input:focus-visible, button:focus-visible, .chip:focus-vis
     }
   })();
 </script>
+  <script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const boutonWifi = document.getElementById("wifi-btn");
+    const etat = document.getElementById("connexion-etat");
+
+    if (boutonWifi && etat) {
+        boutonWifi.addEventListener("click", function () {
+
+            etat.textContent =
+            "Mode Wi-Fi sélectionné. En attente de connexion ESP32.";
+
+        });
+    }
+
+});
+</script>
 </body>
 </html>

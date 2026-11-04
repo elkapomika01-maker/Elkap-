@@ -331,6 +331,13 @@ select:focus-visible, input:focus-visible, button:focus-visible, .chip:focus-vis
   .tile b { font-size: 10px; }
 }
 @media (prefers-reduced-motion: reduce) { .gauge .mark, .bar > span { transition: none; } }
+.btns button.active {
+    background: #00c9a7 !important;
+    color: #001b20 !important;
+    border: 2px solid #00ffe0 !important;
+    box-shadow: 0 0 12px rgba(0, 255, 220, 0.6);
+    transform: scale(1.03);
+}
 </style>
 </head>
 <body>
@@ -1292,20 +1299,28 @@ select:focus-visible, input:focus-visible, button:focus-visible, .chip:focus-vis
         'Connexion USB interrompue ou annulée.';
     }
   })();
-</script>
-  <script>
+<script>
 document.addEventListener("DOMContentLoaded", function () {
 
     const boutonWifi = document.getElementById("wifi-btn");
+    const boutonUSB = document.getElementById("usb-btn");
+    const boutonBluetooth = document.getElementById("bluetooth-btn");
     const etat = document.getElementById("connexion-etat");
 
     if (boutonWifi && etat) {
+
         boutonWifi.addEventListener("click", function () {
+
+            boutonWifi.classList.add("active");
+
+            if (boutonUSB) boutonUSB.classList.remove("active");
+            if (boutonBluetooth) boutonBluetooth.classList.remove("active");
 
             etat.textContent =
             "Mode Wi-Fi sélectionné. En attente de connexion ESP32.";
 
         });
+
     }
 
 });

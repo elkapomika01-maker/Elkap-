@@ -1289,9 +1289,7 @@ select:focus-visible, input:focus-visible, button:focus-visible, .chip:focus-vis
       etat.textContent =
         'Connexion USB interrompue ou annulée.';
     }
-    
-</script>
-  document.getElementById('wifi-btn').addEventListener('click', () => {
+   document.getElementById('wifi-btn').addEventListener('click', () => {
     const statusEl = document.getElementById('connexion-etat');
     statusEl.textContent = "Connexion Wi-Fi (ESP32) en cours...";
     statusEl.style.color = "orange";
@@ -1321,6 +1319,7 @@ select:focus-visible, input:focus-visible, button:focus-visible, .chip:focus-vis
             console.error(error);
         });
 });
-  
+    
+</script>  
 </body>
 </html>

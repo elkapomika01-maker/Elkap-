@@ -1255,20 +1255,50 @@ select:focus-visible, input:focus-visible, button:focus-visible, .chip:focus-vis
     window.addEventListener('load', function () { navigator.serviceWorker.register('sw.js').catch(function () {}); });
   }
 })();
-</script>
 <script>
 document.addEventListener("DOMContentLoaded", function () {
 
     const boutonWifi = document.getElementById("wifi-btn");
+    const boutonUSB = document.getElementById("usb-btn");
+    const boutonBluetooth = document.getElementById("bluetooth-btn");
     const etat = document.getElementById("connexion-etat");
 
     if (boutonWifi && etat) {
         boutonWifi.addEventListener("click", function () {
 
+            boutonWifi.classList.add("active");
+
+            if (boutonUSB) boutonUSB.classList.remove("active");
+            if (boutonBluetooth) boutonBluetooth.classList.remove("active");
+
+            etat.textContent =
+                "Mode Wi-Fi sélectionné. En attente de connexion ESP32.";
+        });
+    }
+});
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const boutonWifi = document.getElementById("wifi-btn");
+    const boutonUSB = document.getElementById("usb-btn");
+    const boutonBluetooth = document.getElementById("bluetooth-btn");
+    const etat = document.getElementById("connexion-etat");
+
+    if (boutonWifi && etat) {
+
+        boutonWifi.addEventListener("click", function () {
+
+            boutonWifi.classList.add("active");
+
+            if (boutonUSB) boutonUSB.classList.remove("active");
+            if (boutonBluetooth) boutonBluetooth.classList.remove("active");
+
             etat.textContent =
             "Mode Wi-Fi sélectionné. En attente de connexion ESP32.";
 
         });
+
     }
 
 });

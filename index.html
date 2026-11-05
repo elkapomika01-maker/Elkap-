@@ -4,11 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#08101f" id="metaTheme">
-<meta name="mobile-web-app-capable" content="oui">
-<meta name="apple-mobile-web-app-capable" content="oui">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Elkapø">
 <title>Elkapø électrique</title>
-<link rel="manifeste" href="manifeste.webmanifest">
+<link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" type="image/png" sizes="48x48" href="favicon-48.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -16,58 +16,58 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Exo+2:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
 /* Disposition : en-tête fixe, résumé d'état, 3 phases en colonnes, courbe, 3 indicateurs, commandes, barre de navigation en bas. */
-:racine {
+:root {
   --bg: #08101f;
-  --carte : #0e1b33 ;
-  --carte2 : #0b1629 ;
-  --ligne : #1f3459 ;
-  --encre : #e9f1fc ;
+  --card: #0e1b33;
+  --card2: #0b1629;
+  --line: #1f3459;
+  --ink: #e9f1fc;
   --muted: #8aa0c2;
   --accent: #2b8cff;
   --on-accent: #ffffff;
-  --cyan : #2fd6f2 ;
+  --cyan: #2fd6f2;
   --l1: #f5c542;
   --l2: #22d3ee;
   --l3: #a67bf7;
-  --ok : #2fd685 ;
-  --avertissement : #ff9a3c ;
-  --critique : #ff5d6c ;
+  --ok: #2fd685;
+  --warn: #ff9a3c;
+  --crit: #ff5d6c;
   --f-display: 'Exo 2', 'Segoe UI', system-ui, sans-serif;
   --f-body: 'Barlow', system-ui, sans-serif;
   --f-data: 'IBM Plex Mono', ui-monospace, monospace;
-  palette de couleurs : sombre ;
+  color-scheme: dark;
 }
-@media (préfère-schéma-de-couleur : clair) {
+@media (prefers-color-scheme: light) {
   :root:not([data-theme="dark"]) {
     --bg: #edf2f9; --card: #ffffff; --card2: #f6f9fd; --line: #cfdaea; --ink: #0c1a33;
     --muted: #53668a; --accent: #0a62d6; --on-accent: #ffffff; --cyan: #0a7f9c;
-    --l1 : #b17d00 ; --l2 : #0a7f9c ; --l3 : #6b3fd0 ;
-    --ok : #0e7a43 ; --avertissement : #a65200 ; --critique : #c0182b ;
-    palette de couleurs : claire ;
+    --l1: #b17d00; --l2: #0a7f9c; --l3: #6b3fd0;
+    --ok: #0e7a43; --warn: #a65200; --crit: #c0182b;
+    color-scheme: light;
   }
 }
 :root[data-theme="light"] {
   --bg: #edf2f9; --card: #ffffff; --card2: #f6f9fd; --line: #cfdaea; --ink: #0c1a33;
   --muted: #53668a; --accent: #0a62d6; --on-accent: #ffffff; --cyan: #0a7f9c;
-  --l1 : #b17d00 ; --l2 : #0a7f9c ; --l3 : #6b3fd0 ;
-  --ok : #0e7a43 ; --avertissement : #a65200 ; --critique : #c0182b ;
-  palette de couleurs : claire ;
+  --l1: #b17d00; --l2: #0a7f9c; --l3: #6b3fd0;
+  --ok: #0e7a43; --warn: #a65200; --crit: #c0182b;
+  color-scheme: light;
 }
 
 * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 html { padding-top: env(safe-area-inset-top, 0px); background: var(--bg); -webkit-text-size-adjust: 100%; }
-corps {
-  marge : 0 ; arrière-plan : var(--bg); couleur : var(--encre);
-  police : 400 14px/1,45 var(--f-body);
+body {
+  margin: 0; background: var(--bg); color: var(--ink);
+  font: 400 14px/1.45 var(--f-body);
   padding-left: max(14px, env(safe-area-inset-left, 0px));
   padding-right: max(14px, env(safe-area-inset-right, 0px));
   padding-bottom: calc(86px + env(safe-area-inset-bottom, 0px));
 }
-h1, h2, h3, p { marge : 0 ; }
-bouton { police : héritée ; couleur : héritée ; }
-[caché] { affichage : aucun !important ; }
-.ic { largeur: 22px; hauteur: 22px; flex: aucun; remplissage: aucun; contour: couleur_actuelle; largeur_contour: 1.8; extrémité_contour: arrondie; jonction_contour: arrondie; }
-.wrap { largeur maximale : 1240px; marge : 0 auto; }
+h1, h2, h3, p { margin: 0; }
+button { font: inherit; color: inherit; }
+[hidden] { display: none !important; }
+.ic { width: 22px; height: 22px; flex: none; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.wrap { max-width: 1240px; margin: 0 auto; }
 
 /* En-tête */
 .app-head {
@@ -75,20 +75,20 @@ bouton { police : héritée ; couleur : héritée ; }
   padding: 10px 14px; margin: 0 -14px 14px; background: var(--bg); border-bottom: 1px solid var(--line);
 }
 .icon-btn { background: none; border: 0; padding: 6px; margin-left: -6px; border-radius: 8px; color: var(--ink); cursor: pointer; display: grid; place-items: center; min-width: 40px; min-height: 40px; }
-.icon-btn .ic { largeur: 26px; hauteur: 26px; }
-.logo { largeur: 40px; hauteur: 40px; bordure-radius: 10px; flex: none; bordure: 1px solide var(--line); }
+.icon-btn .ic { width: 26px; height: 26px; }
+.logo { width: 40px; height: 40px; border-radius: 10px; flex: none; border: 1px solid var(--line); }
 .titles { min-width: 0; flex: 1; }
 .titles h1 { font: 700 20px/1.1 var(--f-display); letter-spacing: 0.01em; white-space: nowrap; }
 .titles h1 em { font-style: normal; color: var(--cyan); }
 .titles p { font: 500 11.5px/1.3 var(--f-body); color: var(--muted); margin-top: 3px; }
-.ébrécher {
+.chip {
   display: inline-flex; align-items: center; gap: 6px; flex: none; cursor: pointer;
-  police : 600 12px/1 var(--f-display); marge intérieure : 8px 10px; rayon de bordure : 999px;
-  arrière-plan : var(--card); bordure : 1px solide var(--line); couleur: var(--muet);
+  font: 600 12px/1 var(--f-display); padding: 8px 10px; border-radius: 999px;
+  background: var(--card); border: 1px solid var(--line); color: var(--muted);
 }
-.chip i { largeur: 8px; hauteur: 8px; bordure-radius: 50%; arrière-plan: couleur_actuelle; }
-.chip .ic { largeur: 15px; hauteur: 15px; }
-.chip[data-level="ok"] { couleur: var(--ok); }
+.chip i { width: 8px; height: 8px; border-radius: 50%; background: currentColor; }
+.chip .ic { width: 15px; height: 15px; }
+.chip[data-level="ok"] { color: var(--ok); }
 .chip[data-level="warn"] { color: var(--warn); }
 .chip[data-level="crit"] { color: var(--crit); }
 
@@ -102,28 +102,28 @@ bouton { police : héritée ; couleur : héritée ; }
 .mono { font-family: var(--f-data); }
 
 /* Pastilles d'état */
-.pilule {
+.pill {
   display: inline-flex; align-items: center; gap: 5px; flex: none; white-space: nowrap;
-  police : 600 10,5px/1 var(--f-display); espacement des lettres : 0,05em; transformation du texte : majuscules ;
-  marge intérieure : 5 px 8 px ; bordure arrondie : 999 px ; couleur : var(--muted) ; bordure : 1 px solide var(--line) ;
+  font: 600 10.5px/1 var(--f-display); letter-spacing: 0.05em; text-transform: uppercase;
+  padding: 5px 8px; border-radius: 999px; color: var(--muted); border: 1px solid var(--line);
 }
 .pill::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
 .pill[data-level="ok"] { color: var(--ok); background: color-mix(in srgb, var(--ok) 13%, transparent); border-color: color-mix(in srgb, var(--ok) 45%, var(--line)); }
 .pill[data-level="warn"] { color: var(--warn); background: color-mix(in srgb, var(--warn) 14%, transparent); border-color: color-mix(in srgb, var(--warn) 50%, var(--line)); }
 .pill[data-level="crit"] { color: var(--crit); background: color-mix(in srgb, var(--crit) 14%, transparent); border-color: color-mix(in srgb, var(--crit) 50%, var(--line)); }
-.lv-ok { couleur: var(--ok); } .lv-warn { couleur: var(--warn); } .lv-crit { couleur: var(--crit); }
+.lv-ok { color: var(--ok); } .lv-warn { color: var(--warn); } .lv-crit { color: var(--crit); }
 
-/* CV */
+/* Résumé */
 .summary { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); padding: 10px 4px; }
 .sum-item { display: flex; align-items: center; gap: 6px; padding: 2px 6px; min-width: 0; background: none; border: 0; text-align: left; cursor: default; }
 .sum-item + .sum-item { border-left: 1px solid var(--line); }
-bouton.somme-élément { curseur: pointeur; }
-.sum-item .ic { largeur: 22px; hauteur: 22px; couleur: var(--cyan); }
+button.sum-item { cursor: pointer; }
+.sum-item .ic { width: 22px; height: 22px; color: var(--cyan); }
 .sum-item > div { min-width: 0; }
 .sum-lbl { display: block; font: 500 11.5px/1.2 var(--f-body); color: var(--muted); }
 .sum-val { display: block; font: 700 13px/1.25 var(--f-display); margin-top: 2px; overflow-wrap: anywhere; }
 .sum-val.sm { font: 500 11.5px/1.25 var(--f-body); }
-.sum-val[data-level="ok"] { couleur : var(--ok); }
+.sum-val[data-level="ok"] { color: var(--ok); }
 .sum-val[data-level="warn"] { color: var(--warn); }
 .sum-val[data-level="crit"] { color: var(--crit); }
 
@@ -147,17 +147,17 @@ bouton.somme-élément { curseur: pointeur; }
 
 /* Courbe */
 .chart-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 8px; flex-wrap: wrap; }
-sélectionner, entrée[type="nombre"] {
-  police : 500 13px var(--f-body); couleur : var(--ink); arrière-plan : var(--card2); bordure : 1px solide var(--line);
-  bordure arrondie : 8 px ; marge intérieure : 8 px 10 px ; hauteur minimale : 38 px ;
+select, input[type="number"] {
+  font: 500 13px var(--f-body); color: var(--ink); background: var(--card2); border: 1px solid var(--line);
+  border-radius: 8px; padding: 8px 10px; min-height: 38px;
 }
 select:focus-visible, input:focus-visible, button:focus-visible, .chip:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 #chart svg { display: block; width: 100%; height: auto; }
 .c-grid { stroke: var(--line); stroke-width: 1; }
-.c-nom { trait : var(--muet); largeur de trait : 1 ; coup-dasharray : 3 3 ; opacité : 0,7 ; }
-#texte du graphique { fill: var(--muted); police : 400 9,5px var(--f-data); }
-.s1 { trait : var(--l1); } .s2 { trait : var(--l2); } .s3 { trait : var(--l3); } .sa { trait : var(--ink); }
-.f1 { remplir : var(--l1); } .f2 { remplir : var(--l2); } .f3 { remplir : var(--l3); } .fa { remplir : var(--ink); }
+.c-nom { stroke: var(--muted); stroke-width: 1; stroke-dasharray: 3 3; opacity: .7; }
+#chart text { fill: var(--muted); font: 400 9.5px var(--f-data); }
+.s1 { stroke: var(--l1); } .s2 { stroke: var(--l2); } .s3 { stroke: var(--l3); } .sa { stroke: var(--ink); }
+.f1 { fill: var(--l1); } .f2 { fill: var(--l2); } .f3 { fill: var(--l3); } .fa { fill: var(--ink); }
 .legend { display: flex; flex-wrap: wrap; gap: 6px 16px; margin-top: 6px; font: 500 12.5px var(--f-body); }
 .legend span { display: inline-flex; align-items: center; gap: 6px; }
 .legend i { width: 10px; height: 10px; border-radius: 50%; background: var(--c); }
@@ -166,7 +166,7 @@ select:focus-visible, input:focus-visible, button:focus-visible, .chip:focus-vis
 .stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
 .stat { padding: 10px; display: flex; flex-direction: column; gap: 8px; }
 .stat-top { display: flex; align-items: flex-start; gap: 8px; }
-.stat-top .ic { largeur: 26px; hauteur: 26px; couleur: var(--crit); marge-haut: 2px; }
+.stat-top .ic { width: 26px; height: 26px; color: var(--crit); margin-top: 2px; }
 .stat:nth-child(2) .stat-top .ic { color: var(--cyan); }
 .stat:nth-child(3) .stat-top .ic { color: var(--accent); }
 .stat-top span { font: 500 11.5px/1.25 var(--f-body); color: var(--muted); }
@@ -176,38 +176,38 @@ select:focus-visible, input:focus-visible, button:focus-visible, .chip:focus-vis
 
 /* Commandes */
 .cmd-head { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-.cmd-head .ic { couleur: var(--cyan); }
+.cmd-head .ic { color: var(--cyan); }
 .badge { margin-left: auto; font: 600 11px/1.2 var(--f-display); color: var(--warn); border: 1px solid color-mix(in srgb, var(--warn) 60%, var(--line)); border-radius: 10px; padding: 6px 9px; background: color-mix(in srgb, var(--warn) 10%, transparent); }
 .badge[data-mode="live"] { color: var(--cyan); border-color: color-mix(in srgb, var(--cyan) 55%, var(--line)); background: color-mix(in srgb, var(--cyan) 10%, transparent); }
 .cmd-note { font: italic 400 12.5px/1.4 var(--f-body); color: var(--muted); margin: 8px 0 10px; }
 .tiles { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
 .tile {
   display: flex; flex-direction: column; align-items: center; justify-content: flex-start; gap: 6px; text-align: center;
-  marge intérieure : 10px 2px ; hauteur minimale : 92px ; arrière-plan : mélange de couleurs (en srgb, var(--cyan) 6 %, var(--card2)) ;
-  bordure : 1px solide var(--line); rayon de bordure : 12px; curseur : pointeur;
+  padding: 10px 2px; min-height: 92px; background: color-mix(in srgb, var(--cyan) 6%, var(--card2));
+  border: 1px solid var(--line); border-radius: 12px; cursor: pointer;
 }
-.tile .ic { largeur: 28px; hauteur: 28px; couleur: var(--cyan); }
+.tile .ic { width: 28px; height: 28px; color: var(--cyan); }
 .tile b { font: 600 11px/1.2 var(--f-body); }
 .tile small { font: 600 9.5px/1.2 var(--f-display); letter-spacing: .02em; color: var(--muted); display: inline-flex; align-items: center; gap: 4px; }
 .tile small::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
 .tile small[data-level="ok"] { color: var(--ok); }
 .tile small[data-level="warn"] { color: var(--warn); }
-.tile[aria-disabled="true"] { opacité: .5; curseur: non autorisé; }
-.confirmer {
+.tile[aria-disabled="true"] { opacity: .5; cursor: not-allowed; }
+.confirm {
   display: flex; align-items: center; gap: 10px; margin-top: 10px; padding: 8px 8px 8px 12px; flex-wrap: wrap;
-  bordure : 1px solide color-mix(in srgb, var(--accent) 55%, var(--line)); bordure-radius : 12px; arrière-plan : color-mix(in srgb, var(--accent) 9%, transparent);
+  border: 1px solid color-mix(in srgb, var(--accent) 55%, var(--line)); border-radius: 12px; background: color-mix(in srgb, var(--accent) 9%, transparent);
 }
-.confirm .ic { couleur: var(--accent); }
+.confirm .ic { color: var(--accent); }
 .confirm p { flex: 1; min-width: 160px; font: 500 12.5px/1.35 var(--f-body); }
 .btn {
   display: inline-flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer;
-  police : 600 14px/1.2 var(--f-body); marge intérieure : 10px 16px; hauteur minimale : 42px; rayon de bordure : 10px;
-  arrière-plan : var(--card2); bordure : 1px solide var(--line); couleur : var(--encre);
+  font: 600 14px/1.2 var(--f-body); padding: 10px 16px; min-height: 42px; border-radius: 10px;
+  background: var(--card2); border: 1px solid var(--line); color: var(--ink);
 }
-.btn .ic { largeur: 18px; hauteur: 18px; }
+.btn .ic { width: 18px; height: 18px; }
 .btn.primary { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
-.btn.danger { couleur : var(--crit); }
-.btn[désactivé] { opacité: .45; curseur: non autorisé; }
+.btn.danger { color: var(--crit); }
+.btn[disabled] { opacity: .45; cursor: not-allowed; }
 
 /* Listes */
 .rows { list-style: none; margin: 0; padding: 0; }
@@ -227,7 +227,7 @@ select:focus-visible, input:focus-visible, button:focus-visible, .chip:focus-vis
 .bar[data-level="crit"] > span { background: var(--crit); }
 .bar .tick { position: absolute; top: 0; bottom: 0; width: 2px; background: var(--card); }
 .tscroll { overflow-x: auto; }
-.tbl { largeur: 100%; bordure-réduction: réduction; police-variante-numérique: tabular-nums; }
+.tbl { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
 .tbl th { text-align: right; font: 500 11.5px var(--f-body); color: var(--muted); padding: 0 6px 8px; white-space: nowrap; }
 .tbl td { text-align: right; padding: 9px 6px; border-top: 1px solid var(--line); font: 500 14px var(--f-data); white-space: nowrap; }
 .tbl th:first-child, .tbl td:first-child { text-align: left; font: 700 17px var(--f-display); color: var(--pc); }
@@ -237,7 +237,7 @@ select:focus-visible, input:focus-visible, button:focus-visible, .chip:focus-vis
 .alarm-list li { display: flex; gap: 10px; align-items: flex-start; padding: 10px 12px; border-radius: 10px; border: 1px solid var(--line); }
 .alarm-list li[data-level="warn"] { border-color: color-mix(in srgb, var(--warn) 55%, var(--line)); background: color-mix(in srgb, var(--warn) 9%, transparent); }
 .alarm-list li[data-level="crit"] { border-color: color-mix(in srgb, var(--crit) 55%, var(--line)); background: color-mix(in srgb, var(--crit) 10%, transparent); }
-.alarm-list .ic { largeur: 20px; hauteur: 20px; marge-haut: 1px; }
+.alarm-list .ic { width: 20px; height: 20px; margin-top: 1px; }
 .alarm-ok { display: flex; gap: 10px; align-items: center; color: var(--ok); font-weight: 500; }
 .seg { display: flex; gap: 6px; flex-wrap: wrap; }
 .seg label { position: relative; flex: 1; text-align: center; min-width: 70px; padding: 9px 8px; min-height: 40px; border: 1px solid var(--line); border-radius: 10px; font: 600 13px/1.2 var(--f-body); cursor: pointer; background: var(--card2); }
@@ -247,7 +247,7 @@ select:focus-visible, input:focus-visible, button:focus-visible, .chip:focus-vis
 .log { list-style: none; margin: 0; padding: 0; }
 .log li { display: grid; grid-template-columns: 8px 112px minmax(0, 1fr); gap: 10px; align-items: baseline; padding: 9px 0; border-top: 1px solid var(--line); }
 .log li:first-child { border-top: 0; padding-top: 2px; }
-.log .dot { largeur: 8px; hauteur: 8px; bordure-radius: 50%; arrière-plan: var(--muted); }
+.log .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--muted); }
 .log li[data-level="ok"] .dot { background: var(--ok); }
 .log li[data-level="warn"] .dot { background: var(--warn); }
 .log li[data-level="crit"] .dot { background: var(--crit); }
@@ -260,27 +260,27 @@ select:focus-visible, input:focus-visible, button:focus-visible, .chip:focus-vis
 .fields { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin-top: 10px; }
 .field { display: flex; flex-direction: column; gap: 5px; }
 .field label { font: 500 12.5px var(--f-body); color: var(--muted); }
-.field input { largeur: 100%; }
+.field input { width: 100%; }
 .field-row { display: flex; align-items: center; gap: 6px; }
 .field-row span { color: var(--muted); font-size: 13px; }
 .sim-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 8px; margin-top: 10px; }
 
 /* Barre du bas */
 .tabbar {
-  position : fixe ; gauche : 0 ; droite : 0 ; bas : 0 ; z-index : 30 ;
-  affichage : grille ; colonnes du modèle de grille : répéter(5, 1fr) ;
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 30;
+  display: grid; grid-template-columns: repeat(5, 1fr);
   padding: 6px max(6px, env(safe-area-inset-right, 0px)) calc(6px + env(safe-area-inset-bottom, 0px)) max(6px, env(safe-area-inset-left, 0px));
-  arrière-plan : var(--bg); border-top : 1px solid var(--line);
+  background: var(--bg); border-top: 1px solid var(--line);
 }
 .tab { background: none; border: 0; display: flex; flex-direction: column; align-items: center; gap: 3px; padding: 7px 2px 9px; color: var(--muted); cursor: pointer; position: relative; font: 500 11px/1.1 var(--f-body); min-height: 52px; }
-.tab .ic { largeur: 25px; hauteur: 25px; }
+.tab .ic { width: 25px; height: 25px; }
 .tab[aria-current="page"] { color: var(--accent); }
 .tab[aria-current="page"]::after { content: ""; position: absolute; left: 22%; right: 22%; bottom: 0; height: 3px; border-radius: 2px; background: var(--accent); }
 
-/* Menulatéral */
+/* Menu latéral */
 .drawer { position: fixed; inset: 0; z-index: 50; display: flex; }
 .drawer .scrim { position: absolute; inset: 0; background: rgba(0, 0, 0, .55); }
-.tiroir à part {
+.drawer aside {
   position: relative; width: min(300px, 82vw); background: var(--bg); border-right: 1px solid var(--line);
   padding: calc(16px + env(safe-area-inset-top, 0px)) 14px 16px max(14px, env(safe-area-inset-left, 0px)); display: flex; flex-direction: column; gap: 6px;
 }
@@ -291,39 +291,39 @@ select:focus-visible, input:focus-visible, button:focus-visible, .chip:focus-vis
 
 @media (min-width: 560px) {
   .kv-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-  .kv-pair .kv + .kv { marge-haut: 0 !important; }
+  .kv-pair .kv + .kv { margin-top: 0 !important; }
 }
 /* Grand écran : le contenu occupe toute la largeur, en colonnes */
 @media (min-width: 900px) {
-  corps { padding-left: max(24px, env(safe-area-inset-left, 0px)); padding-right: max(24px, env(safe-area-inset-right, 0px)); }
+  body { padding-left: max(24px, env(safe-area-inset-left, 0px)); padding-right: max(24px, env(safe-area-inset-right, 0px)); }
   .app-head { margin: 0 -24px 18px; padding: 12px 24px; }
   .titles h1 { font-size: 24px; }
   .titles p { font-size: 13px; }
-  .chip .chip-t { affichage : en ligne ; }
+  .chip .chip-t { display: inline; }
   .view { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 16px; align-items: start; }
   .view > * { grid-column: span 3; }
-  #v-accueil > .summary, #v-accueil > .phases, #v-accueil > #cmdHome { grille-colonne : 1 / -1 ; }
+  #v-accueil > .summary, #v-accueil > .phases, #v-accueil > #cmdHome { grid-column: 1 / -1; }
   #v-accueil > .chart { grid-column: span 4; }
   #v-accueil > .stats { grid-column: span 2; grid-template-columns: 1fr; grid-template-rows: repeat(3, 1fr); align-self: stretch; }
   #v-accueil .stat { flex-direction: row; align-items: center; justify-content: space-between; }
-  #v-accueil .stat-top { flex:1; }
+  #v-accueil .stat-top { flex: 1; }
   .phases { gap: 16px; }
   .phase { padding: 16px; gap: 12px; }
   .num b { font-size: 32px; }
   .ph-tag { font-size: 28px; }
   .phase .pill { font-size: 10.5px; padding: 5px 8px; }
   .stat-val b { font-size: 30px; }
-  .tile { hauteur minimale : 110px; } .tile b { taille de police : 13px; } .tile small { taille de police : 11px; }
+  .tile { min-height: 110px; } .tile b { font-size: 13px; } .tile small { font-size: 11px; }
   #v-mesures > :first-child { grid-column: 1 / -1; }
   #v-commandes > #cmdPage { grid-column: 1 / -1; }
   #v-historique { grid-template-columns: 2fr 3fr; }
-  #v-historique > * { grille-colonne: auto; }
+  #v-historique > * { grid-column: auto; }
   .tabbar { left: 50%; right: auto; width: min(760px, 100%); transform: translateX(-50%); border: 1px solid var(--line); border-bottom: 0; border-radius: 16px 16px 0 0; }
 }
 @media (max-width: 440px) {
   .titles h1 { font-size: 18px; }
   .titles p { font-size: 11px; }
-  .chip .chip-t { affichage : aucun ; }
+  .chip .chip-t { display: none; }
   .chip { padding: 9px 10px; }
   .app-head { gap: 8px; }
 }
@@ -333,9 +333,9 @@ select:focus-visible, input:focus-visible, button:focus-visible, .chip:focus-vis
 @media (prefers-reduced-motion: reduce) { .gauge .mark, .bar > span { transition: none; } }
 </style>
 </head>
-<corps>
+<body>
 
-<svg largeur="0" hauteur="0" style="position:absolute" aria-hidden="true">
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11.5 12 4l9 7.5M5.5 10v10h13V10M10 20v-5h4v5"/></symbol>
   <symbol id="i-activity" viewBox="0 0 24 24"><path d="M3 12h4l3-8 4 16 3-8h4"/></symbol>
   <symbol id="i-sliders" viewBox="0 0 24 24"><path d="M4 6h9M17 6h3M4 12h3M11 12h9M4 18h11M19 18h1M15 4v4M7 10v4M17 16v4"/></symbol>
@@ -369,32 +369,18 @@ select:focus-visible, input:focus-visible, button:focus-visible, .chip:focus-vis
   <img class="logo" src="icon-192.png" alt="" width="40" height="40">
   <div class="titles">
     <h1>Elkapø <em>Électrique</em></h1>
-    <p>Surveillance et amp; Contrôle – Tableau Triphasé</p>
+    <p>Surveillance &amp; Contrôle – Tableau Triphasé</p>
   </div>
   <button type="button" class="chip" id="chip" data-level="" aria-label="État de la liaison avec le coffret" title="État de la liaison">
     <i></i><span class="chip-t" id="chipT">Simulation</span><svg class="ic"><use href="#i-bt"/></svg>
   </button>
 </header>
-<!-- CONNEXION DU COFFRET -->
-<section class="card" id="connexion-coffret">
-  <h2>CONNEXION DU COFFRET</h2>
-  <p>Choisissez le mode de communication avec ton coffret.</p>
 
-  <div class="btns">
-    <button type="button" id="usb-btn">🔌 USB — Arduino Mega</button>
-    <button type="button" id="bluetooth-btn">📶 Bluetooth — HC-05</button>
-    <button type="button" id="wifi-btn">📡 Wi-Fi — ESP32</button>
-  </div>
-
-  <p id="connexion-etat" role="status">
-    État : aucun appareil connecté
-  </p>
-</section>
 <main>
 
 <!-- ACCUEIL -->
 <section class="view" id="v-accueil" data-view="accueil">
-  <div class="résumé de la carte">
+  <div class="card summary">
     <div class="sum-item"><svg class="ic"><use href="#i-plug"/></svg><div><span class="sum-lbl">Réseau triphasé</span><span class="sum-val sm" id="sumNet">230/400 V · 50 Hz</span></div></div>
     <div class="sum-item"><svg class="ic"><use href="#i-shield"/></svg><div><span class="sum-lbl">État du système</span><span class="sum-val" id="sumState" data-level="ok">NORMAL</span></div></div>
     <button type="button" class="sum-item" id="sumAlarmBtn"><svg class="ic"><use href="#i-bell"/></svg><div><span class="sum-lbl">Alarmes</span><span class="sum-val" id="sumAlarm" data-level="ok">0 active</span></div></button>
@@ -414,7 +400,7 @@ select:focus-visible, input:focus-visible, button:focus-visible, .chip:focus-vis
       </select>
     </div>
     <div id="chart"></div>
-    <div class="légende">
+    <div class="legend">
       <span style="--c:var(--l1)"><i></i>L1</span><span style="--c:var(--l2)"><i></i>L2</span><span style="--c:var(--l3)"><i></i>L3</span>
     </div>
   </div>
@@ -456,7 +442,7 @@ select:focus-visible, input:focus-visible, button:focus-visible, .chip:focus-vis
 </section>
 
 <!-- COMMANDES -->
-<section class="view" id="v-commandes" data-view="commandes" cachées>
+<section class="view" id="v-commandes" data-view="commandes" hidden>
   <div class="card cmdpanel" id="cmdPage"></div>
   <div class="card">
     <div class="chart-head" style="margin-bottom:0">
@@ -465,27 +451,27 @@ select:focus-visible, input:focus-visible, button:focus-visible, .chip:focus-vis
     </div>
     <p class="note" id="balText" style="margin:8px 0 6px"></p>
     <ul class="rows" id="bal"></ul>
-    <p class="note" style="margin-top:10px">Un contacteur ne se ferme qu'après l'ouverture de l'autre. Verrouillage mécanique et électrique entre les contacteurs normaux et secours de chaque circuit.</p>
+    <p class="note" style="margin-top:10px">Un contacteur ne se ferme qu'après l'ouverture de l'autre. Verrouillage mécanique et électrique entre les contacteurs normal et secours de chaque circuit.</p>
   </div>
   <div class="card" id="secSim">
     <h2 class="sec-title"><svg class="ic"><use href="#i-flask"/></svg>Simulateur de défauts</h2>
-    <p class="note" style="margin-top:6px">Les mesures sont fictives. Le simulateur sert à vérifier l'affichage avant de brancher les vrais capteurs. Il disparaît lorsque le coffret est connecté.</p>
+    <p class="note" style="margin-top:6px">Les mesures sont fictives. Le simulateur sert à vérifier l'affichage avant de brancher les vrais capteurs. Il disparaît quand le coffret est connecté.</p>
     <div class="seg" style="margin-top:12px" role="radiogroup" aria-label="Phase concernée">
       <label><input type="radio" name="ph" id="ph1" value="0">L1</label>
       <label><input type="radio" name="ph" id="ph2" value="1" checked>L2</label>
       <label><input type="radio" name="ph" id="ph3" value="2">L3</label>
     </div>
     <div class="sim-grid">
-      <button type="button" class="btn" id="bLoss">Coupez la phase</button>
+      <button type="button" class="btn" id="bLoss">Couper la phase</button>
       <button type="button" class="btn" id="bOver">Surcharge</button>
-      <button type="button" class="btn" id="bShort">Circuit judiciaire</button>
+      <button type="button" class="btn" id="bShort">Court-circuit</button>
       <button type="button" class="btn danger" id="bFire">Incendie</button>
     </div>
   </div>
 </section>
 
 <!-- HISTORIQUE -->
-<section class="view" id="v-historique" data-view="historique" caché>
+<section class="view" id="v-historique" data-view="historique" hidden>
   <div class="card">
     <h2 class="sec-title"><svg class="ic"><use href="#i-bell"/></svg>Alarmes actives</h2>
     <div id="alarms" style="margin-top:10px"></div>
@@ -509,7 +495,7 @@ select:focus-visible, input:focus-visible, button:focus-visible, .chip:focus-vis
 </section>
 
 <!-- RÉGLAGES -->
-<section class="view" id="v-reglages" data-view="reglages" caché>
+<section class="view" id="v-reglages" data-view="reglages" hidden>
   <div class="card">
     <h2 class="sec-title"><svg class="ic"><use href="#i-bt"/></svg>Connexion au coffret</h2>
     <p style="margin-top:8px" id="connState"></p>
@@ -522,8 +508,8 @@ select:focus-visible, input:focus-visible, button:focus-visible, .chip:focus-vis
       <div class="field"><label for="cVLow">Tension basse</label><div class="field-row"><input type="number" id="cVLow" inputmode="decimal" min="150" max="230" step="1"><span>V</span></div></div>
       <div class="field"><label for="cVHigh">Tension haute</label><div class="field-row"><input type="number" id="cVHigh" inputmode="decimal" min="231" max="300" step="1"><span>V</span></div></div>
       <div class="field"><label for="cINom">Calibre du disjoncteur</label><div class="field-row"><input type="number" id="cINom" inputmode="decimal" min="1" max="63" step="1"><span>A</span></div></div>
-      <div class="field"><label for="cTAl">Température d'alerte</label><div class="field-row"><input type="number" id="cTAl" inputmode="decimal" min="30" max="120" step="1"><span>°C</span></div></div>
-      <div class="field"><label for="cTCut">Température de coupe</label><div class="field-row"><input type="number" id="cTCut" inputmode="decimal" min="40" max="150" step="1"><span>°C</span></div></div>
+      <div class="field"><label for="cTAl">Alerte température</label><div class="field-row"><input type="number" id="cTAl" inputmode="decimal" min="30" max="120" step="1"><span>°C</span></div></div>
+      <div class="field"><label for="cTCut">Coupure température</label><div class="field-row"><input type="number" id="cTCut" inputmode="decimal" min="40" max="150" step="1"><span>°C</span></div></div>
     </div>
     <p class="note" style="margin-top:10px">Ces seuils règlent l'affichage et la simulation. Le coffret garde ses propres seuils, fixés dans le code Arduino.</p>
     <div class="row-btns" style="margin-top:12px"><button type="button" class="btn" id="bDefaults">Valeurs d'usine</button></div>
@@ -538,7 +524,7 @@ select:focus-visible, input:focus-visible, button:focus-visible, .chip:focus-vis
   </div>
   <div class="card">
     <h2 class="sec-title"><svg class="ic"><use href="#i-info"/></svg>À propos</h2>
-    <p class="note" style="margin-top:8px">Elkapø électrique, version 2.0. Tableau de bord d'un coffret triphasé : tensions, courants, températures, équilibrage de phase et protections. Ne remplacez pas les disjoncteurs thermiques et magnétiques de l'installation.</p>
+    <p class="note" style="margin-top:8px">Elkapø électrique, version 2.0. Tableau de bord d'un coffret triphasé : tensions, courants, températures, équilibrage de phase et protections. Ne remplace pas les disjoncteurs thermiques et magnétiques de l'installation.</p>
   </div>
 </section>
 
@@ -550,7 +536,7 @@ select:focus-visible, input:focus-visible, button:focus-visible, .chip:focus-vis
   <button type="button" class="tab" data-go="mesures"><svg class="ic"><use href="#i-activity"/></svg>Mesures</button>
   <button type="button" class="tab" data-go="commandes"><svg class="ic"><use href="#i-sliders"/></svg>Commandes</button>
   <button type="button" class="tab" data-go="historique"><svg class="ic"><use href="#i-clock"/></svg>Historique</button>
-  <button type="button" class="tab" data-go="reglages"><svg class="ic"><use href="#i-gear"/></svg>Réglementations</button>
+  <button type="button" class="tab" data-go="reglages"><svg class="ic"><use href="#i-gear"/></svg>Réglages</button>
 </nav>
 
 <div class="drawer" id="drawer" hidden>
@@ -561,46 +547,46 @@ select:focus-visible, input:focus-visible, button:focus-visible, .chip:focus-vis
     <button type="button" class="d-link" data-go="mesures"><svg class="ic"><use href="#i-activity"/></svg>Mesures</button>
     <button type="button" class="d-link" data-go="commandes"><svg class="ic"><use href="#i-sliders"/></svg>Commandes</button>
     <button type="button" class="d-link" data-go="historique"><svg class="ic"><use href="#i-clock"/></svg>Historique</button>
-    <button type="button" class="d-link" data-go="reglages"><svg class="ic"><use href="#i-gear"/></svg>Réglementations</button>
+    <button type="button" class="d-link" data-go="reglages"><svg class="ic"><use href="#i-gear"/></svg>Réglages</button>
     <p class="note d-foot" id="drawerMode"></p>
   </aside>
 </div>
 
 <script>
-(fonction () {
-  'utiliser le strict';
-  varN = 60, NOM = 230, SMOKE_CUT = 400 ;
+(function () {
+  'use strict';
+  var N = 60, NOM = 230, SMOKE_CUT = 400;
   var CIR = [
-    { id : 'C1', nom : 'Éclairage et prises', charge : 5.5 },
-    { id: 'C2', nom: 'Cuisine', charge: 7.2 },
+    { id: 'C1', name: 'Éclairage et prises', load: 5.5 },
+    { id: 'C2', name: 'Cuisine', load: 7.2 },
     { id: 'C3', name: 'Climatisation', load: 8.4 }
   ];
-  var PROBES = ['Bornier d'entrée', 'Contacteurs', 'Jeu de barres'];
+  var PROBES = ['Bornier d’entrée', 'Contacteurs', 'Jeu de barres'];
   var PK = [0.35, 0.5, 0.65];
-  var DEF = { vLow : 207, vHigh : 253, iNom : 16, tAlert : 70, tCut : 85, thème : 'auto' } ;
+  var DEF = { vLow: 207, vHigh: 253, iNom: 16, tAlert: 70, tCut: 85, theme: 'auto' };
   var VIEWS = ['accueil', 'mesures', 'commandes', 'historique', 'reglages'];
 
   var $ = function (id) { return document.getElementById(id); };
   var qa = function (sel) { return Array.prototype.slice.call(document.querySelectorAll(sel)); };
   var f = function (n, d) { return Number(n).toFixed(d === undefined ? 1 : d).replace('.', ','); };
   var rnd = function () { return Math.random() * 2 - 1; };
-  var L = fonction (p) { return 'L' + (p + 1); } ;
+  var L = function (p) { return 'L' + (p + 1); };
   var ic = function (n) { return '<svg class="ic"><use href="#i-' + n + '"/></svg>'; };
 
-  /* ---------- Paramètres enregistrés ---------- */
+  /* ---------- Réglages enregistrés ---------- */
   var cfg = {}; Object.keys(DEF).forEach(function (k) { cfg[k] = DEF[k]; });
-  essayer {
+  try {
     var raw = localStorage.getItem('elkapo-cfg');
-    si (brut) {
+    if (raw) {
       var o = JSON.parse(raw);
       Object.keys(DEF).forEach(function (k) { if (o && typeof o[k] === typeof DEF[k]) cfg[k] = o[k]; });
     }
-  } attraper (e) {}
+  } catch (e) {}
   function saveCfg() { try { localStorage.setItem('elkapo-cfg', JSON.stringify(cfg)); } catch (e) {} }
 
-  fonction appliquerTheme() {
+  function applyTheme() {
     var r = document.documentElement;
-    Si (cfg.theme === 'dark' || cfg.theme === 'light') r.setAttribute('data-theme', cfg.theme); sinon r.removeAttribute('data-theme');
+    if (cfg.theme === 'dark' || cfg.theme === 'light') r.setAttribute('data-theme', cfg.theme); else r.removeAttribute('data-theme');
     var dark = cfg.theme === 'dark' || (cfg.theme === 'auto' && !(window.matchMedia && matchMedia('(prefers-color-scheme: light)').matches));
     $('metaTheme').setAttribute('content', dark ? '#08101f' : '#edf2f9');
   }
@@ -610,118 +596,118 @@ select:focus-visible, input:focus-visible, button:focus-visible, .chip:focus-vis
   try { logs = JSON.parse(localStorage.getItem('elkapo-log') || '[]'); } catch (e) { logs = []; }
   if (!Array.isArray(logs)) logs = [];
   function saveLogs() { try { localStorage.setItem('elkapo-log', JSON.stringify(logs)); } catch (e) {} }
-  fonction log(niveau, texte) {
+  function log(level, text) {
     logs.unshift({ ts: Date.now(), level: level, text: text });
-    si (logs.length > 100) logs.length = 100 ;
-    enregistrer les journaux();
+    if (logs.length > 100) logs.length = 100;
+    saveLogs();
   }
-  fonction fmtTs(ts) {
+  function fmtTs(ts) {
     var d = new Date(ts);
     return d.toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit' }) + ' ' + d.toLocaleTimeString('fr-FR', { hour12: false });
   }
 
   /* ---------- État ---------- */
   var s = {
-    mode : 'sim', attendre : faux, auto : vrai,
-    perdu : nul, sur : faux, surPh : 0, mag : nul, therm : nul, chaleur : faux, feu : faux, ouvert : faux,
-    thermique : [0, 0, 0], avertissement : [faux, faux, faux], assigner : [0, 1, 2],
-    temp : [33, 36, 39], fumée : 118, freq : 50, spike : null, t : 0, sel : 1,
+    mode: 'sim', wait: false, auto: true,
+    lost: null, over: false, overPh: 0, mag: null, therm: null, heat: false, fire: false, open: false,
+    thermal: [0, 0, 0], warned: [false, false, false], assign: [0, 1, 2],
+    temp: [33, 36, 39], smoke: 118, freq: 50, spike: null, t: 0, sel: 1,
     hist: [], V: [229, 231, 228], A: [0, 0, 0], chartMode: 'all', filter: 'all',
-    arméJusqu'à : 0, indice : '', indiceJusqu'à : 0
+    armedUntil: 0, hint: '', hintUntil: 0
   };
   var xferActive = function () { return s.assign.some(function (a, i) { return a !== i; }); };
-  var cible = fonction (p) { retourner (p + 1) % 3; };
+  var target = function (p) { return (p + 1) % 3; };
 
   /* ---------- Simulation ---------- */
-  fonction volts() {
-    retourner [0, 1, 2].map(fonction (p) {
-      si (s.lost === p) retourner 0 ;
-      renvoie [229, 231, 228][p] + 2 * Math.sin(st / 9 + p * 2.1) + rnd() * 0.7;
+  function volts() {
+    return [0, 1, 2].map(function (p) {
+      if (s.lost === p) return 0;
+      return [229, 231, 228][p] + 2 * Math.sin(s.t / 9 + p * 2.1) + rnd() * 0.7;
     });
   }
-  fonction courants() {
-    retourner [0, 1, 2].map(fonction (p) {
-      si (s.open || s.lost === p) retourner 0 ;
+  function currents() {
+    return [0, 1, 2].map(function (p) {
+      if (s.open || s.lost === p) return 0;
       var a = 0;
       CIR.forEach(function (c, i) { if (s.assign[i] === p) a += c.load; });
-      si (s.over && s.overPh === p) a += 14;
-      renvoyer a * (0,97 + Math.random() * 0,06);
+      if (s.over && s.overPh === p) a += 14;
+      return a * (0.97 + Math.random() * 0.06);
     });
   }
-  fonction applyAuto() {
+  function applyAuto() {
     s.assign = [0, 1, 2];
-    si (s.lost !== null) s.assign[s.lost] = target(s.lost);
+    if (s.lost !== null) s.assign[s.lost] = target(s.lost);
   }
 
-  fonction étape() {
-    si (s.mode !== 'sim') retourner;
+  function step() {
+    if (s.mode !== 'sim') return;
     s.t++;
-    var V = volts(), A = courants();
-    si (s.spike !== null) { A[s.spike] = 186 + rnd() * 6; s.spike = null; }
-    pour (var p = 0; p < 3; p++) {
-      si (!s.open && A[p] > cfg.iNom) s.thermal[p] += (Math.pow(A[p] / cfg.iNom, 2) - 1) * 10;
-      sinon s.thermal[p] -= s.open ? 6 : 2.5;
+    var V = volts(), A = currents();
+    if (s.spike !== null) { A[s.spike] = 186 + rnd() * 6; s.spike = null; }
+    for (var p = 0; p < 3; p++) {
+      if (!s.open && A[p] > cfg.iNom) s.thermal[p] += (Math.pow(A[p] / cfg.iNom, 2) - 1) * 10;
+      else s.thermal[p] -= s.open ? 6 : 2.5;
       s.thermal[p] = Math.min(100, Math.max(0, s.thermal[p]));
-      si (s.thermal[p] < 50) s.warned[p] = faux ;
-      si (!s.open && s.thermal[p] >= 70 && !s.warned[p]) {
-        s.averti[p] = vrai;
+      if (s.thermal[p] < 50) s.warned[p] = false;
+      if (!s.open && s.thermal[p] >= 70 && !s.warned[p]) {
+        s.warned[p] = true;
         log('warn', 'Échauffement sur ' + L(p) + ' : image thermique à ' + Math.round(s.thermal[p]) + ' %.');
       }
-      si (!s.open && s.thermal[p] >= 100 && s.therm === null) {
-        s.therm = p; s.open = vrai;
+      if (!s.open && s.thermal[p] >= 100 && s.therm === null) {
+        s.therm = p; s.open = true;
         log('crit', 'Déclenchement thermique sur ' + L(p) + '. Disjoncteur général ouvert.');
         A = [0, 0, 0];
-        casser;
+        break;
       }
     }
     var tot = A.reduce(function (a, b) { return a + b; }, 0);
-    si (tot > 60) tot = 0 ;
-    pour (var i = 0; i < 3; i++) {
+    if (tot > 60) tot = 0;
+    for (var i = 0; i < 3; i++) {
       var tg = 31 + PK[i] * tot + (s.fire ? [40, 55, 64][i] : 0);
       s.temp[i] += (tg - s.temp[i]) * 0.12 + rnd() * 0.15;
     }
-    si (!s.open && Math.max.apply(null, s.temp) >= cfg.tCut) {
-      s.chaleur = vrai; s.ouverture = vrai;
+    if (!s.open && Math.max.apply(null, s.temp) >= cfg.tCut) {
+      s.heat = true; s.open = true;
       log('crit', 'Température critique : coupure générale.');
       A = [0, 0, 0];
     }
     s.smoke += ((s.fire ? 650 : 118) - s.smoke) * 0.2 + rnd() * 2;
-    s.freq = 50 + 0.03 * Math.sin(st / 7) + rnd() * 0.02;
+    s.freq = 50 + 0.03 * Math.sin(s.t / 7) + rnd() * 0.02;
     s.hist.push(V); if (s.hist.length > N) s.hist.shift();
-    sV = V; sA = A;
-    rendre();
+    s.V = V; s.A = A;
+    render();
   }
 
   /* ---------- Alarmes ---------- */
-  fonction alarmes() {
-    var a = [], V = sV;
+  function alarms() {
+    var a = [], V = s.V;
     if (s.mode === 'lost') a.push(['crit', 'Liaison perdue avec le coffret']);
     if (s.fire) a.push(['crit', 'Incendie : alimentation générale coupée']);
     if (s.mag !== null) a.push(['crit', 'Déclenchement magnétique sur ' + L(s.mag)]);
     if (s.therm !== null) a.push(['crit', 'Déclenchement thermique sur ' + L(s.therm)]);
     if (s.heat) a.push(['crit', 'Coupure sur température critique']);
-    pour (var p = 0; p < 3; p++) {
+    for (var p = 0; p < 3; p++) {
       if (V[p] < 50) a.push(xferActive() ? ['warn', 'Phase ' + L(p) + ' absente, équilibrage actif'] : ['crit', 'Phase ' + L(p) + ' absente']);
-      sinon si (V[p] < cfg.vLow) a.push(['warn', 'Tension basse sur ' + L(p) + ' (' + f(V[p]) + ' V)']);
-      sinon si (V[p] > cfg.vHigh) a.push(['warn', 'Tension haute sur ' + L(p) + ' (' + f(V[p]) + ' V)']);
+      else if (V[p] < cfg.vLow) a.push(['warn', 'Tension basse sur ' + L(p) + ' (' + f(V[p]) + ' V)']);
+      else if (V[p] > cfg.vHigh) a.push(['warn', 'Tension haute sur ' + L(p) + ' (' + f(V[p]) + ' V)']);
       if (!s.open && s.thermal[p] >= 70) a.push(['warn', 'Surcharge sur ' + L(p) + ' : image thermique à ' + Math.round(s.thermal[p]) + ' %']);
     }
-    pour (var i = 0; i < 3; i++) {
+    for (var i = 0; i < 3; i++) {
       if (s.temp[i] >= cfg.tCut) a.push(['crit', PROBES[i] + ' : ' + f(s.temp[i]) + ' °C, seuil de coupure atteint']);
-      sinon si (s.temp[i] >= cfg.tAlert) a.push(['warn', PROBES[i] + ' : ' + f(s.temp[i]) + ' °C, température élevée']);
+      else if (s.temp[i] >= cfg.tAlert) a.push(['warn', PROBES[i] + ' : ' + f(s.temp[i]) + ' °C, température élevée']);
     }
     if (!s.fire && s.smoke > SMOKE_CUT) a.push(['warn', 'Fumée détectée (indice ' + Math.round(s.smoke) + ')']);
-    renvoyer un;
+    return a;
   }
 
   /* ---------- Rendu : accueil ---------- */
   var phaseEls = [];
-  fonction buildPhases() {
+  function buildPhases() {
     var box = $('phases'); box.innerHTML = ''; phaseEls = [];
-    var lowPos = (cfg.vLow - 160), highPos = (cfg.vHigh - 160) ;
+    var lowPos = (cfg.vLow - 160), highPos = (cfg.vHigh - 160);
     [0, 1, 2].forEach(function (i) {
       var el = document.createElement('article');
-      el.className = 'phase de carte';
+      el.className = 'card phase';
       el.style.setProperty('--pc', 'var(--l' + (i + 1) + ')');
       el.innerHTML =
         '<div class="ph-top"><span class="ph-tag">' + L(i) + '</span><span class="pill" data-role="state">Normal</span></div>' +
@@ -732,66 +718,66 @@ select:focus-visible, input:focus-visible, button:focus-visible, .chip:focus-vis
         '<div><div class="gauge"><span class="band" style="left:' + lowPos + '%;width:' + (highPos - lowPos) + '%"></span><span class="mark" data-role="mark"></span></div>' +
         '<div class="gscale"><span style="left:0;transform:none">160</span><span style="left:' + lowPos + '%">' + cfg.vLow + '</span><span style="left:' + highPos + '%;transform:translateX(-80%)">' + cfg.vHigh + '</span></div></div>' +
         '<p class="ph-feeds" data-role="feeds"></p>';
-      boîte.appendChild(el);
+      box.appendChild(el);
       phaseEls.push(el);
     });
   }
   var q = function (el, role) { return el.querySelector('[data-role="' + role + '"]'); };
 
-  fonction vState(v) {
-    si (v < 50) retourner ['crit', 'Absent'];
-    si (v < cfg.vLow) retourner ['avertissement', 'Basse'];
-    si (v > cfg.vHigh) retourner ['avertissement', 'Haute'];
-    renvoyer ['ok', 'Normal'];
+  function vState(v) {
+    if (v < 50) return ['crit', 'Absente'];
+    if (v < cfg.vLow) return ['warn', 'Basse'];
+    if (v > cfg.vHigh) return ['warn', 'Haute'];
+    return ['ok', 'Normal'];
   }
 
-  fonction renderPhases() {
-    var V = sV, A = sA;
+  function renderPhases() {
+    var V = s.V, A = s.A;
     phaseEls.forEach(function (el, p) {
       var st = vState(V[p]);
-      var pilule = q(el, 'état'); pilule.dataset.level = st[0]; pilule.textContent = st[1];
+      var pill = q(el, 'state'); pill.dataset.level = st[0]; pill.textContent = st[1];
       q(el, 'v').textContent = f(V[p]);
       var a = q(el, 'a'); a.textContent = f(A[p]);
       a.style.color = A[p] > 100 ? 'var(--crit)' : (A[p] > cfg.iNom ? 'var(--warn)' : '');
       var mark = q(el, 'mark');
       mark.style.left = Math.min(100, Math.max(0, V[p] - 160)) + '%';
-      marque.style.opacité = V[p] < 50 ? 0,35 : 1 ;
+      mark.style.opacity = V[p] < 50 ? 0.35 : 1;
       var ids = CIR.filter(function (c, i) { return s.assign[i] === p; }).map(function (c) { return c.id; });
       var txt;
       if (s.open) txt = 'Sortie coupée';
-      sinon si (!ids.length) txt = V[p] < 50 ? 'Phase absente' : 'Aucune charge';
-      sinon si (ids.length === 1) txt = 'Alimentation ' + ids[0];
-      sinon txt = ids.join(' + ') + ' (secours)';
+      else if (!ids.length) txt = V[p] < 50 ? 'Phase absente' : 'Aucune charge';
+      else if (ids.length === 1) txt = 'Alimentation ' + ids[0];
+      else txt = ids.join(' + ') + ' (secours)';
       q(el, 'feeds').textContent = txt;
     });
   }
 
-  fonction renderSummary(al) {
+  function renderSummary(al) {
     var crit = al.some(function (x) { return x[0] === 'crit'; });
     var warn = al.length > 0;
-    var niveau, texte;
+    var lvl, txt;
     if (s.wait) { lvl = 'warn'; txt = 'EN ATTENTE'; }
-    sinon if (crit) { lvl = 'crit'; txt = s.open ? 'COUPÉ' : 'DÉFAUT'; }
-    sinon si (avertissement) { lvl = 'avertissement'; txt = 'ATTENTION'; }
-    sinon { lvl = 'ok'; txt = 'NORMAL'; }
+    else if (crit) { lvl = 'crit'; txt = s.open ? 'COUPÉ' : 'DÉFAUT'; }
+    else if (warn) { lvl = 'warn'; txt = 'ATTENTION'; }
+    else { lvl = 'ok'; txt = 'NORMAL'; }
     var st = $('sumState'); st.dataset.level = lvl; st.textContent = txt;
     var n = al.length, sa = $('sumAlarm');
-    sa.textContent = n + (n > 1 ? ' actifs' : ' actif');
-    sa.dataset.level = n === 0 ? 'ok' : (crit ? 'crit' : 'avertissement');
+    sa.textContent = n + (n > 1 ? ' actives' : ' active');
+    sa.dataset.level = n === 0 ? 'ok' : (crit ? 'crit' : 'warn');
     $('sumNet').textContent = '230/400 V · ' + (s.freq ? f(s.freq, 0) : '50') + ' Hz';
   }
 
-  fonction renderStats() {
+  function renderStats() {
     var t = Math.max.apply(null, s.temp);
     $('stTemp').textContent = f(t, 0) + ' °C';
     var tp = $('stTempP');
     tp.dataset.level = t >= cfg.tCut ? 'crit' : (t >= cfg.tAlert ? 'warn' : 'ok');
     tp.textContent = t >= cfg.tCut ? 'Critique' : (t >= cfg.tAlert ? 'Élevée' : 'Normale');
 
-    var V = sV, up = V.every(function (v) { return v >= 50; });
+    var V = s.V, up = V.every(function (v) { return v >= 50; });
     var ub = $('stUnb'), up2 = $('stUnbP');
     if (!up) { ub.textContent = '—'; up2.dataset.level = 'crit'; up2.textContent = 'Phase absente'; }
-    autre {
+    else {
       var m = (V[0] + V[1] + V[2]) / 3;
       var dev = Math.max(Math.abs(V[0] - m), Math.abs(V[1] - m), Math.abs(V[2] - m)) / m * 100;
       ub.textContent = f(dev) + ' %';
@@ -799,80 +785,80 @@ select:focus-visible, input:focus-visible, button:focus-visible, .chip:focus-vis
       up2.textContent = dev <= 2 ? 'Bon' : (dev <= 4 ? 'Moyen' : 'Élevé');
     }
     var fq = $('stFreq'), fp = $('stFreqP');
-    if (!s.freq) { fq.textContent = '—'; fp.dataset.level = ''; fp.textContent = 'Non mesuré'; }
-    autre {
+    if (!s.freq) { fq.textContent = '—'; fp.dataset.level = ''; fp.textContent = 'Non mesurée'; }
+    else {
       fq.textContent = f(s.freq) + ' Hz';
       var d = Math.abs(s.freq - 50);
       fp.dataset.level = d <= 0.5 ? 'ok' : (d <= 1 ? 'warn' : 'crit');
-      fp.textContent = d <= 0,5 ? 'Normale' : (d <= 1 ? 'Écart' : 'Anormale');
+      fp.textContent = d <= 0.5 ? 'Normale' : (d <= 1 ? 'Écart' : 'Anormale');
     }
   }
 
-  fonction renderChart() {
+  function renderChart() {
     var el = $('chart');
-    if (!s.hist.length) { el.innerHTML = '<p class="note">En attente des premières mesures.</p>'; retour; }
+    if (!s.hist.length) { el.innerHTML = '<p class="note">En attente des premières mesures.</p>'; return; }
     var W = 400, H = 190, Lm = 44, R = 10, T = 10, B = 24;
     var mode = s.chartMode;
     var series = mode === 'all' ? [0, 1, 2].map(function (p) { return { c: p + 1, v: s.hist.map(function (h) { return h[p]; }) }; })
       : mode === 'avg' ? [{ c: 'a', v: s.hist.map(function (h) { return (h[0] + h[1] + h[2]) / 3; }) }]
-      : [{ c: Nombre(mode) + 1, v: s.hist.map(function (h) { return h[Nombre(mode)]; }) }];
-    var all = []; series.forEach(function (x) { all = all.concat(xv); });
+      : [{ c: Number(mode) + 1, v: s.hist.map(function (h) { return h[Number(mode)]; }) }];
+    var all = []; series.forEach(function (x) { all = all.concat(x.v); });
     var mn = Math.min.apply(null, all), mx = Math.max.apply(null, all);
-    var lo, salut, tiques;
-    si (mn >= 195 && mx <= 245) { lo = 200; hi = 240; ticks = [200, 210, 220, 230, 240]; }
-    sinon { lo = 0; hi = 260; ticks = [0, 100, 200]; }
+    var lo, hi, ticks;
+    if (mn >= 195 && mx <= 245) { lo = 200; hi = 240; ticks = [200, 210, 220, 230, 240]; }
+    else { lo = 0; hi = 260; ticks = [0, 100, 200]; }
     var x = function (i) { return Lm + (W - Lm - R) * i / (N - 1); };
-    var y = function (v) { return T + (H - T - B) * (1 - (Math.min(hi, Math.max(lo, v)) - lo) / (salut - lo)); } ;
+    var y = function (v) { return T + (H - T - B) * (1 - (Math.min(hi, Math.max(lo, v)) - lo) / (hi - lo)); };
     var g = '';
     ticks.forEach(function (v) {
       g += '<line class="c-grid" x1="' + Lm + '" x2="' + (W - R) + '" y1="' + y(v).toFixed(1) + '" y2="' + y(v).toFixed(1) + '"/>';
       g += '<text x="' + (Lm - 6) + '" y="' + (y(v) + 3.5).toFixed(1) + '" text-anchor="end">' + v + ' V</text>';
     });
-    if (NOM > lo && NOM < salut && ticks.indexOf(NOM) < 0) {
+    if (NOM > lo && NOM < hi && ticks.indexOf(NOM) < 0) {
       g += '<line class="c-nom" x1="' + Lm + '" x2="' + (W - R) + '" y1="' + y(NOM).toFixed(1) + '" y2="' + y(NOM).toFixed(1) + '"/>';
     }
-    pour (var k = 0; k <= 6; k++) {
+    for (var k = 0; k <= 6; k++) {
       var xx = Lm + (W - Lm - R) * k / 6;
       g += '<text x="' + xx.toFixed(1) + '" y="' + (H - 6) + '" text-anchor="' + (k === 0 ? 'start' : (k === 6 ? 'end' : 'middle')) + '">' + (k === 6 ? '0 s' : '−' + (60 - k * 10) + ' s') + '</text>';
     }
-    série.forEach(fonction (sr) {
+    series.forEach(function (sr) {
       var off = N - sr.v.length;
       var pts = sr.v.map(function (v, i) { return x(i + off).toFixed(1) + ',' + y(v).toFixed(1); }).join(' ');
       g += '<polyline class="s' + sr.c + '" points="' + pts + '" fill="none" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>';
     });
-    série.forEach(fonction (sr) {
+    series.forEach(function (sr) {
       g += '<circle class="f' + sr.c + '" cx="' + x(N - 1).toFixed(1) + '" cy="' + y(sr.v[sr.v.length - 1]).toFixed(1) + '" r="3.5"/>';
     });
     el.innerHTML = '<svg viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="Courbes de tension sur 60 secondes">' + g + '</svg>';
   }
 
   /* ---------- Rendu : commandes ---------- */
-  fonction cmdPanelHtml() {
-    renvoyer '' +
+  function cmdPanelHtml() {
+    return '' +
       '<div class="cmd-head">' + ic('shield') + '<h2 class="sec-title">Commandes</h2><span class="badge" data-role="badge"></span></div>' +
       '<p class="cmd-note" data-role="note"></p>' +
       '<div class="tiles">' +
         '<button type="button" class="tile" data-cmd="auto">' + ic('power') + '<b>Mode automatique</b><small data-role="s-auto"></small></button>' +
         '<button type="button" class="tile" data-cmd="manual">' + ic('hand') + '<b>Mode manuel</b><small data-role="s-manual"></small></button>' +
-        '<button type="button" class="tile" data-cmd="xfer">' + ic('swap') + '<b>Source de basculement</b><small data-role="s-xfer"></small></button>' +
+        '<button type="button" class="tile" data-cmd="xfer">' + ic('swap') + '<b>Basculement source</b><small data-role="s-xfer"></small></button>' +
         '<button type="button" class="tile" data-cmd="reset">' + ic('refresh') + '<b>Réarmement</b><small data-role="s-reset"></small></button>' +
       '</div>' +
       '<div class="confirm">' + ic('info') + '<p data-role="info"></p><button type="button" class="btn primary js-confirm" data-role="confirm"></button></div>';
   }
 
-  fonction renderCmd() {
+  function renderCmd() {
     var live = s.mode !== 'sim';
-    var armé = Date.now() < s.armedUntil;
-    var gauche = Math.max(0, Math.ceil((s.armedUntil - Date.now()) / 1000));
-    var allusion = Date.now() < s.hintUntil ? indice : '';
+    var armed = Date.now() < s.armedUntil;
+    var left = Math.max(0, Math.ceil((s.armedUntil - Date.now()) / 1000));
+    var hint = Date.now() < s.hintUntil ? s.hint : '';
     qa('.cmdpanel').forEach(function (pn) {
       var g = function (r) { return pn.querySelector('[data-role="' + r + '"]'); };
       var badge = g('badge');
       badge.dataset.mode = live ? 'live' : 'sim';
       badge.textContent = live ? 'COFFRET — lecture seule' : 'SIMULATION — aucune commande réelle';
-      g('note').textContent = en direct
-        ? 'Le téléphone ne commande pas le coffret. Le mode, le basculement et le réarmement se font sur place, par sécurité.
-        : 'Ces commandes sont en mode simulation. Aucune action réelle ne sera exécutée sur l'installation. Une confirmation sera toujours requise avant toute commutation.';
+      g('note').textContent = live
+        ? 'Le téléphone ne commande pas le coffret. Le mode, le basculement et le réarmement se font sur place, par sécurité.'
+        : 'Ces commandes sont en mode simulation. Aucune action réelle ne sera exécutée sur l’installation. Une confirmation sera toujours requise avant toute commutation.';
       var set = function (role, txt, lvl) { var e = g(role); e.textContent = txt; if (lvl) e.dataset.level = lvl; else e.removeAttribute('data-level'); };
       set('s-auto', s.auto ? 'ACTIF' : 'INACTIF', s.auto ? 'ok' : '');
       set('s-manual', !s.auto ? 'ACTIF' : 'INACTIF', !s.auto ? 'warn' : '');
@@ -883,68 +869,68 @@ select:focus-visible, input:focus-visible, button:focus-visible, .chip:focus-vis
         b.setAttribute('aria-disabled', dis[b.dataset.cmd] ? 'true' : 'false');
       });
       var info = g('info');
-      info.textContent = live ? 'Lecture seule : aucune commande n'est envoyée au coffret.'
-        : (hint || (armed ? 'Confirmation active. Touche une commande dans les ' + left + ' s.' : 'Pour toute commande réelle, vous devez d'abord confirmer l'action.'));
-      var cb = g('confirmer');
-      cb.désactivé = en direct ;
+      info.textContent = live ? 'Lecture seule : aucune commande n’est envoyée au coffret.'
+        : (hint || (armed ? 'Confirmation active. Touche une commande dans les ' + left + ' s.' : 'Pour toute commande réelle, vous devez d’abord confirmer l’action.'));
+      var cb = g('confirm');
+      cb.disabled = live;
       cb.innerHTML = (armed ? ic('unlock') + 'Confirmé · ' + left + ' s' : ic('lock') + 'Confirmer');
     });
   }
 
-  fonction runCmd(nom) {
-    si (s.mode !== 'sim') retourner;
+  function runCmd(name) {
+    if (s.mode !== 'sim') return;
     var say = function (m) { s.hint = m; s.hintUntil = Date.now() + 3500; renderCmd(); };
-    if (name === 'xfer' && s.auto) return say('Passe d'abord en mode manuel pour basculer toi-même.');
+    if (name === 'xfer' && s.auto) return say('Passe d’abord en mode manuel pour basculer toi-même.');
     if (name === 'reset' && !s.open) return say('Rien à réarmer : le disjoncteur général est fermé.');
-    if (Date.now() >= s.armedUntil) return say('Appuie d'abord sur Confirmer, puis sur la commande.');
+    if (Date.now() >= s.armedUntil) return say('Appuie d’abord sur Confirmer, puis sur la commande.');
     s.armedUntil = 0;
-    si (nom === 'auto') {
-      s.auto = vrai;
+    if (name === 'auto') {
+      s.auto = true;
       log('info', 'Mode automatique activé.');
       if (s.lost !== null) { applyAuto(); log('warn', CIR[s.lost].id + ' basculé sur ' + L(target(s.lost)) + '.'); } else s.assign = [0, 1, 2];
-    } sinon si (nom === 'manuel') {
-      s.auto = faux;
+    } else if (name === 'manual') {
+      s.auto = false;
       log('info', 'Mode manuel activé : le basculement de source se fait à la main.');
-    } sinon si (nom === 'xfer') {
+    } else if (name === 'xfer') {
       if (xferActive()) { s.assign = [0, 1, 2]; log('info', 'Basculement manuel : retour sur la phase normale.'); }
       else if (s.lost !== null) { applyAuto(); log('warn', 'Basculement manuel : ' + CIR[s.lost].id + ' sur ' + L(target(s.lost)) + '.'); }
       else { log('info', 'Aucune phase absente : pas de basculement nécessaire.'); }
-    } sinon si (nom === 'réinitialisation') {
-      faireRéinitialiser();
+    } else if (name === 'reset') {
+      doReset();
     }
-    étape();
+    step();
   }
 
-  fonction doReset() {
+  function doReset() {
     s.lost = null; s.over = false; s.mag = null; s.therm = null; s.heat = false; s.fire = false; s.open = false;
     s.thermal = [0, 0, 0]; s.warned = [false, false, false]; s.spike = null;
-    si (s.auto) s.assign = [0, 1, 2];
+    if (s.auto) s.assign = [0, 1, 2];
     log('ok', 'Réarmement effectué : disjoncteur général fermé.');
   }
 
   /* ---------- Rendu : mesures ---------- */
-  fonction ligne(nom, sous-groupe, niveau, étiquette) {
+  function row(name, sub, lvl, label) {
     return '<li><div><p class="r-name">' + name + '</p><p class="r-sub">' + sub + '</p></div><span class="pill" data-level="' + lvl + '">' + label + '</span></li>';
   }
-  fonction renderMeasures() {
-    var V = sV, A = sA;
+  function renderMeasures() {
+    var V = s.V, A = s.A;
     $('mTable').innerHTML = [0, 1, 2].map(function (p) {
       var sva = V[p] * A[p];
-      var pw = sva >= 1000 ? f(sva / 1000, 2) + 'kVA' : Math.round(sva) + 'VA';
+      var pw = sva >= 1000 ? f(sva / 1000, 2) + ' kVA' : Math.round(sva) + ' VA';
       return '<tr style="--pc:var(--l' + (p + 1) + ')"><td>' + L(p) + '</td><td>' + f(V[p]) + ' V</td><td>' + f(A[p]) + ' A</td><td>' + pw + '</td><td>' + Math.round(s.thermal[p]) + ' %</td></tr>';
-    }).rejoindre('');
+    }).join('');
     var lv = function (t) { return t >= cfg.tCut ? 'crit' : (t >= cfg.tAlert ? 'warn' : 'ok'); };
     var scaleMax = cfg.tCut + 15, base = 20;
     $('temps').innerHTML = PROBES.map(function (name, i) {
       var t = s.temp[i];
       var pct = Math.min(100, Math.max(0, (t - base) / (scaleMax - base) * 100));
       var ta = (cfg.tAlert - base) / (scaleMax - base) * 100, tc = (cfg.tCut - base) / (scaleMax - base) * 100;
-      retourner '<li class="temp"><div class="t-row"><span class="r-name">' + nom + '</span><span class="t-val">' + f(t) + ' °C</span></div>' +
+      return '<li class="temp"><div class="t-row"><span class="r-name">' + name + '</span><span class="t-val">' + f(t) + ' °C</span></div>' +
         '<div class="bar" data-level="' + lv(t) + '"><span style="width:' + pct.toFixed(1) + '%"></span><i class="tick" style="left:' + ta.toFixed(1) + '%"></i><i class="tick" style="left:' + tc.toFixed(1) + '%"></i></div></li>';
-    }).rejoindre('');
+    }).join('');
     $('tempNote').textContent = 'Alerte à ' + cfg.tAlert + ' °C, coupure à ' + cfg.tCut + ' °C. Sondes DS18B20 sur les points chauds.';
 
-    var fl = s.feu;
+    var fl = s.fire;
     var sm = s.smoke > SMOKE_CUT ? ['warn', 'Fumée'] : ['ok', 'Aucune'];
     $('fireRows').innerHTML =
       row('Capteur de flamme', fl ? 'Flamme détectée' : 'Aucune flamme', fl ? 'crit' : 'ok', fl ? 'Alerte' : 'Normal') +
@@ -954,58 +940,58 @@ select:focus-visible, input:focus-visible, button:focus-visible, .chip:focus-vis
     var cause = s.fire ? 'incendie' : (s.heat ? 'température' : (s.mag !== null ? 'magnétique' : (s.therm !== null ? 'thermique' : '')));
     var th = s.therm !== null ? ['crit', 'Déclenchée'] : (maxTh >= 70 ? ['warn', 'Échauffement'] : ['ok', 'Normale']);
     $('prot').innerHTML =
-      row('Disjoncteur général', s.open ? 'Coupure ' + cause : 'Tripolaire + neutre, ' + cfg.iNom + 'A', s.open ? 'crit' : 'ok', s.open ? 'Ouvert' : 'Fermé') +
-      ligne('Protection thermique', 'Image thermique max. ' + Math.round(maxTh) + ' % (' + L(iTh) + ')', th[0], th[1]) +
+      row('Disjoncteur général', s.open ? 'Coupure ' + cause : 'Tripolaire + neutre, ' + cfg.iNom + ' A', s.open ? 'crit' : 'ok', s.open ? 'Ouvert' : 'Fermé') +
+      row('Protection thermique', 'Image thermique max. ' + Math.round(maxTh) + ' % (' + L(iTh) + ')', th[0], th[1]) +
       row('Protection magnétique', s.mag !== null ? 'Court-circuit sur ' + L(s.mag) + ', 186 A' : 'Courbe C, 5 à 10 × In', s.mag !== null ? 'crit' : 'ok', s.mag !== null ? 'Déclenchée' : 'Armée');
   }
 
   /* ---------- Rendu : équilibrage, alarmes, journal ---------- */
-  fonction renderBalance() {
+  function renderBalance() {
     var active = s.lost !== null, moved = xferActive();
-    var pilule = $('balPill');
-    pilule.dataset.niveau = actif ? 'avertissement' : (déplacé ? 'avertissement' : 'ok');
-    pilule.textContent = actif ? (déplacé ? 'Actif' : 'Attente') : (déplacé ? 'Transfert' : 'Veille');
-    $('balText').textContent = actif
-      ? (moved ? L(s.lost) + ' absente. ' + CIR[s.lost].id + ' est représailles par ' + L(target(s.lost)) + '.'
-               : L(s.perdu) + ' absente. Mode manuel : ' + CIR[s.lost].id + ' reste sans alimentation tant que le basculement n'est pas fait.')
-      : (moved ? 'Phase revenue. Le basculement manuel est encore actif.' : 'Chaque circuit est alimenté par sa propre phase. L'équilibrage se déclenche à la perte d'une phase.');
+    var pill = $('balPill');
+    pill.dataset.level = active ? 'warn' : (moved ? 'warn' : 'ok');
+    pill.textContent = active ? (moved ? 'Actif' : 'Attente') : (moved ? 'Transfert' : 'Veille');
+    $('balText').textContent = active
+      ? (moved ? L(s.lost) + ' absente. ' + CIR[s.lost].id + ' est repris par ' + L(target(s.lost)) + '.'
+               : L(s.lost) + ' absente. Mode manuel : ' + CIR[s.lost].id + ' reste sans alimentation tant que le basculement n’est pas fait.')
+      : (moved ? 'Phase revenue. Le basculement manuel est encore actif.' : 'Chaque circuit est alimenté par sa propre phase. L’équilibrage se déclenche à la perte d’une phase.');
     $('bal').innerHTML = CIR.map(function (c, i) {
       var mv = s.assign[i] !== i;
       var noSupply = s.lost === i && !mv;
       var txt = s.open ? 'Coupé' : (noSupply ? 'Sans phase' : (mv ? L(i) + ' → ' + L(s.assign[i]) : L(i)));
       var lv = s.open || noSupply ? 'crit' : (mv ? 'warn' : '');
-      return '<li><div><p class="r-name">' + c.id + ' · ' + c.name + '</p><p class="r-sub">' + f(c.load) + ' Un nom</p></div><span class="pill" data-level="' + lv + '">' + txt + '</span></li>';
-    }).rejoindre('');
+      return '<li><div><p class="r-name">' + c.id + ' · ' + c.name + '</p><p class="r-sub">' + f(c.load) + ' A nominal</p></div><span class="pill" data-level="' + lv + '">' + txt + '</span></li>';
+    }).join('');
   }
 
-  fonction renderAlarms(al) {
+  function renderAlarms(al) {
     $('alarms').innerHTML = al.length
       ? '<ul class="alarm-list">' + al.map(function (a) {
           return '<li data-level="' + a[0] + '"><span class="lv-' + a[0] + '">' + ic('warn') + '</span><span>' + a[1] + '</span></li>';
         }).join('') + '</ul>'
-      : '<p class="alarm-ok">' + ic('shield') + 'Alarme Aucune active.</p>';
+      : '<p class="alarm-ok">' + ic('shield') + 'Aucune alarme active.</p>';
   }
 
-  fonction renderLog() {
-    var liste = logs.filter(function (e) {
-      si (s.filter === 'alarm') retourner e.level === 'warn' || e.level === 'crit';
-      si (s.filter === 'info') retourner e.level === 'info' || e.level === 'ok';
-      renvoyer vrai ;
+  function renderLog() {
+    var list = logs.filter(function (e) {
+      if (s.filter === 'alarm') return e.level === 'warn' || e.level === 'crit';
+      if (s.filter === 'info') return e.level === 'info' || e.level === 'ok';
+      return true;
     });
     $('log').innerHTML = list.length ? list.map(function (e) {
-      var t = String(e.text).replace(/&/g, '&').replace(/</g, '<');
+      var t = String(e.text).replace(/&/g, '&amp;').replace(/</g, '&lt;');
       return '<li data-level="' + e.level + '"><i class="dot"></i><time>' + fmtTs(e.ts) + '</time><span>' + t + '</span></li>';
     }).join('') : '<li class="empty"><span></span><span></span><span>Aucun événement.</span></li>';
   }
 
   /* ---------- Rendu : connexion ---------- */
-  fonction renderConn() {
+  function renderConn() {
     var m = s.mode;
-    var puce = $('puce');
+    var chip = $('chip');
     chip.dataset.level = m === 'live' ? (s.wait ? 'warn' : 'ok') : (m === 'lost' ? 'crit' : '');
     $('chipT').textContent = m === 'live' ? (s.wait ? 'Connexion…' : 'Connecté') : (m === 'lost' ? 'Liaison perdue' : 'Simulation');
     qa('.js-connect').forEach(function (b) { b.textContent = m === 'live' ? 'Déconnecter' : (m === 'lost' ? 'Reconnecter' : 'Connecter le coffret'); });
-    var txt = m === 'en direct' ? (s.wait ? 'Connecté au module. En attente des premières mesures.' : 'Connecté au coffret. Les valeurs affichées sont les mesures réelles.')
+    var txt = m === 'live' ? (s.wait ? 'Connecté au module. En attente des premières mesures.' : 'Connecté au coffret. Les valeurs affichées sont les mesures réelles.')
       : (m === 'lost' ? 'La liaison avec le coffret est perdue. Les dernières valeurs reçues restent affichées.'
       : 'Mode simulation : les valeurs affichées sont fictives.');
     $('connState').textContent = txt;
@@ -1013,28 +999,28 @@ select:focus-visible, input:focus-visible, button:focus-visible, .chip:focus-vis
     $('secSim').hidden = m !== 'sim';
   }
 
-  fonction render() {
-    var al = alarmes();
+  function render() {
+    var al = alarms();
     renderSummary(al);
     renderPhases();
-    afficherChart();
+    renderChart();
     renderStats();
     renderCmd();
     renderMeasures();
     renderBalance();
-    afficherAlarmes(al);
+    renderAlarms(al);
     renderLog();
     renderConn();
   }
 
   /* ---------- Navigation ---------- */
-  fonction afficher(nom, pousser) {
-    si (VIEWS.indexOf(name) < 0) nom = 'accueil';
+  function show(name, push) {
+    if (VIEWS.indexOf(name) < 0) name = 'accueil';
     qa('[data-view]').forEach(function (v) { v.hidden = v.dataset.view !== name; });
     qa('[data-go]').forEach(function (b) { if (b.dataset.go === name) b.setAttribute('aria-current', 'page'); else b.removeAttribute('aria-current'); });
     $('drawer').hidden = true;
     if (push !== false && location.hash !== '#' + name) { try { location.hash = name; } catch (e) {} }
-    fenêtre.scrollTo(0, 0);
+    window.scrollTo(0, 0);
   }
   qa('[data-go]').forEach(function (b) { b.addEventListener('click', function () { show(b.dataset.go); }); });
   window.addEventListener('hashchange', function () { show(location.hash.replace('#', ''), false); });
@@ -1042,7 +1028,7 @@ select:focus-visible, input:focus-visible, button:focus-visible, .chip:focus-vis
   $('bMenuClose').addEventListener('click', function () { $('drawer').hidden = true; });
   $('scrim').addEventListener('click', function () { $('drawer').hidden = true; });
   $('sumAlarmBtn').addEventListener('click', function () { show('historique'); });
-  $('chip').addEventListener('click', function () { show('réglages'); });
+  $('chip').addEventListener('click', function () { show('reglages'); });
 
   /* ---------- Commandes (panneaux) ---------- */
   $('cmdHome').innerHTML = cmdPanelHtml();
@@ -1050,13 +1036,13 @@ select:focus-visible, input:focus-visible, button:focus-visible, .chip:focus-vis
   qa('.cmdpanel').forEach(function (pn) {
     pn.addEventListener('click', function (ev) {
       var t = ev.target.closest('[data-cmd], .js-confirm');
-      si (!t) retourner;
-      si (t.classList.contains('js-confirm')) {
-        si (s.mode !== 'sim') retourner;
-        s.armedUntil = Date.now() + 8000 ; s.indice = ''; s.hintUntil = 0;
+      if (!t) return;
+      if (t.classList.contains('js-confirm')) {
+        if (s.mode !== 'sim') return;
+        s.armedUntil = Date.now() + 8000; s.hint = ''; s.hintUntil = 0;
         renderCmd();
-      } autre {
-        exécuterCmd(t.dataset.cmd);
+      } else {
+        runCmd(t.dataset.cmd);
       }
     });
   });
@@ -1066,235 +1052,188 @@ select:focus-visible, input:focus-visible, button:focus-visible, .chip:focus-vis
     r.addEventListener('change', function () { s.sel = Number(r.value); step(); });
   });
   $('bLoss').addEventListener('click', function () {
-    si (s.mode !== 'sim') retourner;
-    si (s.lost === null) {
+    if (s.mode !== 'sim') return;
+    if (s.lost === null) {
       s.lost = s.sel;
-      si (s.auto) {
-        appliquerAuto();
+      if (s.auto) {
+        applyAuto();
         log('warn', 'Perte de phase ' + L(s.lost) + ' (0 V). ' + CIR[s.lost].id + ' basculé sur ' + L(target(s.lost)) + '.');
         log('info', 'Verrouillage entre contacteurs vérifié avant fermeture.');
-      } autre {
+      } else {
         s.assign = [0, 1, 2];
         log('warn', 'Perte de phase ' + L(s.lost) + ' (0 V). Mode manuel : basculement à faire.');
       }
-    } autre {
+    } else {
       var p = s.lost; s.lost = null;
-      si (s.auto) s.assign = [0, 1, 2];
+      if (s.auto) s.assign = [0, 1, 2];
       log('ok', 'Phase ' + L(p) + ' revenue.' + (xferActive() ? ' Basculement manuel à annuler.' : ' Retour à la configuration normale.'));
     }
-    étape();
+    step();
   });
   $('bOver').addEventListener('click', function () {
-    si (s.mode !== 'sim' || s.open) retourner;
+    if (s.mode !== 'sim' || s.open) return;
     if (!s.over) { s.over = true; s.overPh = s.sel; log('warn', 'Surcharge simulée sur ' + L(s.sel) + '.'); }
     else { s.over = false; log('info', 'Fin de la surcharge simulée.'); }
-    étape();
+    step();
   });
   $('bShort').addEventListener('click', function () {
-    si (s.mode !== 'sim' || s.open) retourner;
+    if (s.mode !== 'sim' || s.open) return;
     s.mag = s.sel; s.open = true; s.spike = s.sel;
     log('crit', 'Court-circuit sur ' + L(s.sel) + ' : 186 A. Déclenchement magnétique, disjoncteur général ouvert.');
-    étape();
+    step();
   });
   $('bFire').addEventListener('click', function () {
-    si (s.mode !== 'sim' || s.fire) retourner;
+    if (s.mode !== 'sim' || s.fire) return;
     s.fire = true; s.open = true;
     log('crit', 'Flamme détectée. Coupure générale immédiate.');
-    étape();
+    step();
   });
 
   /* ---------- Journal ---------- */
   qa('input[name="flt"]').forEach(function (r) { r.addEventListener('change', function () { s.filter = r.value; renderLog(); }); });
   function logMsg(m) { $('logMsg').textContent = m; setTimeout(function () { $('logMsg').textContent = ''; }, 3500); }
   $('bCopy').addEventListener('click', function () {
-    var txt = logs.map(function (e) { return fmtTs(e.ts) + ' [' + e.level + '] ' + e.text; }).join('\n');
-    var done = function () { logMsg('Journal copié.'); } ;
-    var fail = function () { logMsg('Copie impossible sur cet appareil.'); } ;
+    var txt = logs.map(function (e) { return fmtTs(e.ts) + '  [' + e.level + ']  ' + e.text; }).join('\n');
+    var done = function () { logMsg('Journal copié.'); };
+    var fail = function () { logMsg('Copie impossible sur cet appareil.'); };
     try { navigator.clipboard.writeText(txt).then(done, fail); } catch (e) { fail(); }
   });
   var clearTimer = null;
   $('bClear').addEventListener('click', function () {
     var b = $('bClear');
-    si (b.dataset.arm !== '1') {
+    if (b.dataset.arm !== '1') {
       b.dataset.arm = '1'; b.textContent = 'Toucher pour confirmer';
       clearTimer = setTimeout(function () { b.dataset.arm = ''; b.textContent = 'Effacer'; }, 4000);
-    } autre {
+    } else {
       clearTimeout(clearTimer); b.dataset.arm = ''; b.textContent = 'Effacer';
-      journaux = []; saveLogs(); renderLog(); logMsg('Journal effacé.');
+      logs = []; saveLogs(); renderLog(); logMsg('Journal effacé.');
     }
   });
 
-  /* ---------- Paramètres ---------- */
-  var CHAMPS = { cVLow : 'vLow', cVHigh : 'vHigh', ciNom : 'iNom', cTAl : 'tAlert', cTCut : 'tCut' };
-  fonction fillSettings() {
+  /* ---------- Réglages ---------- */
+  var FIELDS = { cVLow: 'vLow', cVHigh: 'vHigh', cINom: 'iNom', cTAl: 'tAlert', cTCut: 'tCut' };
+  function fillSettings() {
     Object.keys(FIELDS).forEach(function (id) { $(id).value = cfg[FIELDS[id]]; });
     $({ auto: 'thA', dark: 'thD', light: 'thL' }[cfg.theme] || 'thA').checked = true;
   }
-  Objet.clés(CHAMPS).forEach(fonction (id) {
+  Object.keys(FIELDS).forEach(function (id) {
     $(id).addEventListener('change', function () {
       var el = $(id), v = Number(el.value);
-      Si (!isFinite(v) || el.value === '') { el.value = cfg[FIELDS[id]]; return; }
+      if (!isFinite(v) || el.value === '') { el.value = cfg[FIELDS[id]]; return; }
       v = Math.min(Number(el.max), Math.max(Number(el.min), v));
-      cfg[CHAMPS[id]] = v; el.value = v;
-      si (cfg.vLow >= cfg.vHigh) { cfg.vLow = DEF.vLow; cfg.vHigh = DEF.vHigh; fillSettings(); }
+      cfg[FIELDS[id]] = v; el.value = v;
+      if (cfg.vLow >= cfg.vHigh) { cfg.vLow = DEF.vLow; cfg.vHigh = DEF.vHigh; fillSettings(); }
       if (cfg.tAlert >= cfg.tCut) { cfg.tAlert = DEF.tAlert; cfg.tCut = DEF.tCut; fillSettings(); }
-      enregistrerCfg(); construirePhases(); rendre();
+      saveCfg(); buildPhases(); render();
     });
   });
   $('bDefaults').addEventListener('click', function () {
     Object.keys(DEF).forEach(function (k) { if (k !== 'theme') cfg[k] = DEF[k]; });
-    enregistrerCfg(); remplirParamètres(); construirePhases(); rendre();
+    saveCfg(); fillSettings(); buildPhases(); render();
   });
   qa('input[name="th"]').forEach(function (r) {
     r.addEventListener('change', function () { cfg.theme = r.value; saveCfg(); applyTheme(); });
   });
 
   /* ---------- Liaison Bluetooth avec le coffret ---------- */
-  var ble = { dev : null, chr : null, buf : '' };
-  var dernière image = 0;
+  var ble = { dev: null, chr: null, buf: '' };
+  var lastFrame = 0;
   var argmax = function (a) { var k = 0; for (var i = 1; i < a.length; i++) if (a[i] > a[k]) k = i; return k; };
 
-  fonction onFrame(o) {
-    si (!ov || !oi || !o.lost || !o.xfer) retourner;
-    dernière image = Date.maintenant();
+  function onFrame(o) {
+    if (!o.v || !o.i || !o.lost || !o.xfer) return;
+    lastFrame = Date.now();
     s.mode = 'live'; s.wait = false;
-    s.perdu = null;
+    s.lost = null;
     for (var i = 0; i < 3; i++) { if (o.lost[i]) { s.lost = i; break; } }
     s.assign = [0, 1, 2].map(function (c) { return o.xfer[c] ? target(c) : c; });
     s.open = !!o.open;
-    s.feu = !!(o.feu || o.flamme);
-    s.chaleur = !!o.ttrip;
+    s.fire = !!(o.fire || o.flame);
+    s.heat = !!o.ttrip;
     s.mag = null;
     s.thermal = o.th || [0, 0, 0];
     s.therm = o.therm ? argmax(s.thermal) : null;
     s.over = !s.open && Math.max.apply(null, s.thermal) >= 70;
     s.overPh = argmax(s.thermal);
-    s.temp = ot || s.temp;
-    s.fumée = o.fumée || 0;
-    s.freq = de > 0 ? de : null;
-    sV = ov; sA = oi;
-    s.hist.push(ov); if (s.hist.length > N) s.hist.shift();
-    rendre();
+    s.temp = o.t || s.temp;
+    s.smoke = o.smoke || 0;
+    s.freq = o.f > 0 ? o.f : null;
+    s.V = o.v; s.A = o.i;
+    s.hist.push(o.v); if (s.hist.length > N) s.hist.shift();
+    render();
   }
-  fonction handleLine(line) {
+  function handleLine(line) {
     var o;
     try { o = JSON.parse(line); } catch (e) { return; }
     if (o.evt) { log(['ok', 'warn', 'crit'].indexOf(o.evt) >= 0 ? o.evt : 'info', String(o.msg || '')); renderLog(); }
-    sinon onFrame(o);
+    else onFrame(o);
   }
-  fonction onData(ev) {
+  function onData(ev) {
     ble.buf += new TextDecoder().decode(ev.target.value);
     var idx;
-    tant que ((idx = ble.buf.indexOf('\n')) >= 0) {
-      var ligne = ble.buf.slice(0, idx).trim();
+    while ((idx = ble.buf.indexOf('\n')) >= 0) {
+      var line = ble.buf.slice(0, idx).trim();
       ble.buf = ble.buf.slice(idx + 1);
-      si (ligne) gérerLigne(ligne);
+      if (line) handleLine(line);
     }
-    si (ble.buf.length > 800) ble.buf = '';
+    if (ble.buf.length > 800) ble.buf = '';
   }
-  fonction goLost(msg) {
-    si (s.mode === 'perdu') retourner;
-    s.mode = 'perdu'; s.wait = faux;
+  function goLost(msg) {
+    if (s.mode === 'lost') return;
+    s.mode = 'lost'; s.wait = false;
     log('crit', msg);
-    rendre();
+    render();
   }
-  fonction asynchrone connect() {
-    si (!navigator.bluetooth) {
-      log('warn', 'Bluetooth indisponible ici. Ouvre l'application dans Chrome sur Android.');
+  async function connect() {
+    if (!navigator.bluetooth) {
+      log('warn', 'Bluetooth indisponible ici. Ouvre l’application dans Chrome sur Android.');
       renderLog(); return;
     }
-    essayer {
+    try {
       var dev = await navigator.bluetooth.requestDevice({ acceptAllDevices: true, optionalServices: [0xFFE0] });
       dev.addEventListener('gattserverdisconnected', function () { if (s.mode === 'live') goLost('Liaison Bluetooth perdue avec le coffret.'); });
       var server = await dev.gatt.connect();
-      var svc = wait server.getPrimaryService(0xFFE0);
+      var svc = await server.getPrimaryService(0xFFE0);
       var chr = await svc.getCharacteristic(0xFFE1);
       chr.addEventListener('characteristicvaluechanged', onData);
-      attendre chr.startNotifications();
+      await chr.startNotifications();
       ble.dev = dev; ble.chr = chr; ble.buf = '';
       s.hist = []; s.lost = null; s.assign = [0, 1, 2]; s.over = false; s.mag = null; s.therm = null; s.heat = false; s.fire = false; s.open = false;
       s.thermal = [0, 0, 0]; s.armedUntil = 0;
-      dernière image = Date.maintenant();
+      lastFrame = Date.now();
       s.mode = 'live'; s.wait = true;
       log('ok', 'Connecté au module « ' + (dev.name || 'Bluetooth') + ' ». En attente des mesures.');
-      rendre();
-    } attraper (e) {
+      render();
+    } catch (e) {
       if (e && e.name === 'NotFoundError') log('info', 'Aucun module choisi.');
-      sinon log('avertissement', 'Connexion impossible : ' + (e && e.message ? e.message : e));
+      else log('warn', 'Connexion impossible : ' + (e && e.message ? e.message : e));
       renderLog();
     }
   }
   $('bConn').addEventListener('click', function () {
-    si (s.mode === 'live') {
+    if (s.mode === 'live') {
       try { if (ble.dev && ble.dev.gatt.connected) ble.dev.gatt.disconnect(); } catch (e) {}
-      location.recharger();
-    } sinon connectez();
+      location.reload();
+    } else connect();
   });
-  définirIntervalle(fonction () {
+  setInterval(function () {
     if (s.mode === 'live' && !s.wait && Date.now() - lastFrame > 5000) goLost('Plus de mesures depuis 5 secondes.');
   }, 1000);
 
   /* ---------- Démarrage ---------- */
-  appliquerTheme();
-  remplirParamètres();
-  construirePhases();
+  applyTheme();
+  fillSettings();
+  buildPhases();
   $('chartMode').addEventListener('change', function () { s.chartMode = this.value; renderChart(); });
   for (var k = 0; k < N; k++) { s.t++; s.hist.push(volts()); }
   if (!logs.length) { log('ok', 'Trois phases présentes, tensions dans la plage.'); log('info', 'Simulation démarrée. Les mesures sont fictives.'); }
-  afficher(location.hash.replace('#', ''), false);
-  étape();
-  définirIntervalle(étape, 1000);
-  if ('serviceWorker' dans le navigateur) {
+  show(location.hash.replace('#', ''), false);
+  step();
+  setInterval(step, 1000);
+  if ('serviceWorker' in navigator) {
     window.addEventListener('load', function () { navigator.serviceWorker.register('sw.js').catch(function () {}); });
   }
 })();
 </script>
-</script>
-<script>
-(fonction () {
-  const usb = document.getElementById('usb-btn');
-  const état = document.getElementById('connexion-etat');
-
-  si (!usb || !etat) retourner;
-
-  soit port = null;
-  soit lecteur = null;
-
-  usb.addEventListener('click', fonction asynchrone () {
-    si (!('serial' dans le navigateur)) {
-      etat.textContent =
-        'USB indisponible. Utiliser Chrome ou Edge sur PC.';
-      retour;
-    }
-
-    essayer {
-      port = await navigator.serial.requestPort();
-      await port.open({ baudRate: 9600 });
-
-      etat.textContent =
-        'Connecté par USB. En attente des données Arduino…';
-
-      const décodeur = new TextDecoderStream();
-      port.readable.pipeTo(decoder.writable).catch(() => {});
-      lecteur = décodeur.lisible.getReader();
-
-      tant que (vrai) {
-        const résultat = await lecteur.lire();
-        si (résultat.terminé) interrompre ;
-
-        const lignes = result.value.trim();
-        si (lignes) {
-          etat.textContent = 'USB connecté — Données : ' + lignes;
-        }
-      }
-    } catch (erreur) {
-      etat.textContent =
-        'Connexion USB interrompue ou annulée.';
-    }
-  });
-})();
-</script>
-</body>
-</html>
 </body>
 </html>

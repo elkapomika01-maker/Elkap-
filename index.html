@@ -794,43 +794,92 @@ select:focus-visible, input:focus-visible, button:focus-visible, .chip:focus-vis
     }
   }
 
-  function renderChart() {
-    var el = $('chart');
-    if (!s.hist.length) { el.innerHTML = '<p class="note">En attente des premières mesures.</p>'; return; }
-    var W = 400, H = 190, Lm = 44, R = 10, T = 10, B = 24;
-    var mode = s.chartMode;
-    var series = mode === 'all' ? [0, 1, 2].map(function (p) { return { c: p + 1, v: s.hist.map(function (h) { return h[p]; }) }; })
-      : mode === 'avg' ? [{ c: 'a', v: s.hist.map(function (h) { return (h[0] + h[1] + h[2]) / 3; }) }]
-      : [{ c: Number(mode) + 1, v: s.hist.map(function (h) { return h[Number(mode)]; }) }];
-    var all = []; series.forEach(function (x) { all = all.concat(x.v); });
-    var mn = Math.min.apply(null, all), mx = Math.max.apply(null, all);
-    var lo, hi, ticks;
-    if (mn >= 195 && mx <= 245) { lo = 200; hi = 240; ticks = [200, 210, 220, 230, 240]; }
-    else { lo = 0; hi = 260; ticks = [0, 100, 200]; }
-    var x = function (i) { return Lm + (W - Lm - R) * i / (N - 1); };
-    var y = function (v) { return T + (H - T - B) * (1 - (Math.min(hi, Math.max(lo, v)) - lo) / (hi - lo)); };
-    var g = '';
-    ticks.forEach(function (v) {
-      g += '<line class="c-grid" x1="' + Lm + '" x2="' + (W - R) + '" y1="' + y(v).toFixed(1) + '" y2="' + y(v).toFixed(1) + '"/>';
-      g += '<text x="' + (Lm - 6) + '" y="' + (y(v) + 3.5).toFixed(1) + '" text-anchor="end">' + v + ' V</text>';
-    });
-    if (NOM > lo && NOM < hi && ticks.indexOf(NOM) < 0) {
-      g += '<line class="c-nom" x1="' + Lm + '" x2="' + (W - R) + '" y1="' + y(NOM).toFixed(1) + '" y2="' + y(NOM).toFixed(1) + '"/>';
+
+function renderChart() {
+  var el = $('chart');
+  var W = 400, H = 210;
+  var L = 44, R = 10, T = 12, B = 28;
+  var freq = s.freq > 0 ? s.freq : 50;
+  var mode = s.chartMode;
+  var series = [];
+
+  if (mode === 'all') {
+    for (var p = 0; p < 3; p++) {
+      series.push({
+        c: p + 1,
+        amp: (s.V[p] || 0) * Math.sqrt(2),
+        phase: p * 2 * Math.PI / 3
+      });
     }
-    for (var k = 0; k <= 6; k++) {
-      var xx = Lm + (W - Lm - R) * k / 6;
-      g += '<text x="' + xx.toFixed(1) + '" y="' + (H - 6) + '" text-anchor="' + (k === 0 ? 'start' : (k === 6 ? 'end' : 'middle')) + '">' + (k === 6 ? '0 s' : '−' + (60 - k * 10) + ' s') + '</text>';
-    }
-    series.forEach(function (sr) {
-      var off = N - sr.v.length;
-      var pts = sr.v.map(function (v, i) { return x(i + off).toFixed(1) + ',' + y(v).toFixed(1); }).join(' ');
-      g += '<polyline class="s' + sr.c + '" points="' + pts + '" fill="none" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>';
+  } else if (mode === 'avg') {
+    var moyenne = (s.V[0] + s.V[1] + s.V[2]) / 3;
+    series.push({
+      c: 'a',
+      amp: moyenne * Math.sqrt(2),
+      phase: 0
     });
-    series.forEach(function (sr) {
-      g += '<circle class="f' + sr.c + '" cx="' + x(N - 1).toFixed(1) + '" cy="' + y(sr.v[sr.v.length - 1]).toFixed(1) + '" r="3.5"/>';
+  } else {
+    var p = Number(mode);
+    series.push({
+      c: p + 1,
+      amp: (s.V[p] || 0) * Math.sqrt(2),
+      phase: p * 2 * Math.PI / 3
     });
-    el.innerHTML = '<svg viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="Courbes de tension sur 60 secondes">' + g + '</svg>';
   }
+
+  var x = function(ms) {
+    return L + (ms + 40) / 40 * (W - L - R);
+  };
+
+  var y = function(v) {
+    return T + (400 - v) / 800 * (H - T - B);
+  };
+
+  var g = '<rect x="' + L + '" y="' + T +
+    '" width="' + (W-L-R) + '" height="' + (H-T-B) +
+    '" fill="#020805"/>';
+
+  for (var v = -300; v <= 300; v += 150) {
+    g += '<line x1="' + L + '" x2="' + (W-R) +
+      '" y1="' + y(v) + '" y2="' + y(v) +
+      '" stroke="#355b38" stroke-width="1"/>';
+
+    g += '<text x="' + (L-6) + '" y="' + (y(v)+3) +
+      '" text-anchor="end" style="fill:#a6d88c">' + v + ' V</text>';
+  }
+
+  for (var ms = -40; ms <= 0; ms += 10) {
+    g += '<line x1="' + x(ms) + '" x2="' + x(ms) +
+      '" y1="' + T + '" y2="' + (H-B) +
+      '" stroke="#355b38" stroke-width="1"/>';
+
+    g += '<text x="' + x(ms) + '" y="' + (H-8) +
+      '" text-anchor="middle" style="fill:#a6d88c">' + ms + ' ms</text>';
+  }
+
+  series.forEach(function(sr) {
+    var pts = [];
+
+    for (var i = 0; i <= 200; i++) {
+      var ms = -40 + i * 0.2;
+      var instant = sr.amp *
+        Math.sin(2 * Math.PI * freq * ms / 1000 + sr.phase);
+
+      pts.push(x(ms).toFixed(2) + ',' + y(instant).toFixed(2));
+    }
+
+    g += '<polyline class="s' + sr.c +
+      '" points="' + pts.join(' ') +
+      '" fill="none" stroke-width="2.5" ' +
+      'stroke-linejoin="round" stroke-linecap="round"/>';
+  });
+
+  el.innerHTML =
+    '<svg viewBox="0 0 ' + W + ' ' + H +
+    '" role="img" aria-label="Ondulations sinusoïdales triphasées">' +
+    g + '</svg>';
+}
+
 
   /* ---------- Rendu : commandes ---------- */
   function cmdPanelHtml() {

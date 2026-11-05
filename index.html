@@ -863,7 +863,7 @@ function renderChart() {
     for (var i = 0; i <= 200; i++) {
       var ms = -40 + i * 0.2;
       var instant = sr.amp *
-        Math.sin(2 * Math.PI * freq * ms / 1000 + sr.phase);
+        Math.sin(2 * Math.PI * freq * ms / 1000 + sr.phase + Date.now() / 250);
 
       pts.push(x(ms).toFixed(2) + ',' + y(instant).toFixed(2));
     }
@@ -880,7 +880,8 @@ function renderChart() {
     g + '</svg>';
 }
 
-
+setInterval(renderChart, 40);
+  
   /* ---------- Rendu : commandes ---------- */
   function cmdPanelHtml() {
     return '' +

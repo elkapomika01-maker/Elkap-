@@ -333,38 +333,6 @@ select:focus-visible, input:focus-visible, button:focus-visible, .chip:focus-vis
 @media (prefers-reduced-motion: reduce) { .gauge .mark, .bar > span { transition: none; } }
 
 </style>
-  
-  /* FONDS ELKAPØ SELON LE THÈME */
-
-body {
-  background-image:
-    linear-gradient(rgba(5, 10, 20, 0.45), rgba(5, 10, 20, 0.45)),
-    url("fond-sombre.jpg");
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
-  background-repeat: no-repeat;
-}
-
-:root[data-theme="dark"] body {
-  background-image:
-    linear-gradient(rgba(5, 10, 20, 0.45), rgba(5, 10, 20, 0.45)),
-    url("fond-sombre.jpg");
-}
-
-:root[data-theme="light"] body {
-  background-image:
-    linear-gradient(rgba(255, 255, 255, 0.35), rgba(255, 255, 255, 0.35)),
-    url("fond-clair.jpg");
-}
-
-@media (prefers-color-scheme: light) {
-  :root:not([data-theme="dark"]):not([data-theme="light"]) body {
-    background-image:
-      linear-gradient(rgba(255, 255, 255, 0.35), rgba(255, 255, 255, 0.35)),
-      url("fond-clair.jpg");
-  }
-}
 </head>
 <body>
 

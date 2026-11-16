@@ -651,4 +651,600 @@ button.danger {
   display: grid;
   grid-template-columns: 8px 64px 1fr;
   gap: 10px;
-  align-items: bas
+  align-items: baseline;
+  padding: 9px 0;
+  border-top: 1px solid var(--line-subtle);
+}
+.log li:first-child { border-top: 0; padding-top: 0; }
+.log .lv { width: 8px; height: 8px; border-radius: 50%; background: var(--muted); }
+.log li[data-level="ok"] .lv { background: var(--ok); }
+.log li[data-level="warn"] .lv { background: var(--warn); }
+.log li[data-level="crit"] .lv { background: var(--crit); }
+.log time { font: 400 12px var(--font-data); color: var(--muted); font-variant-numeric: tabular-nums; }
+.log span { min-width: 0; overflow-wrap: anywhere; }
+
+/* ==========================================================================
+   BARRE DE NAVIGATION INFÉRIEURE EN PILULE (Fidèle aux 2 références)
+   ========================================================================== */
+.bottom-pill-nav {
+  position: fixed;
+  bottom: max(16px, env(safe-area-inset-bottom, 0px));
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 8px;
+  border-radius: 999px;
+  background: var(--pill-nav-bg);
+  backdrop-filter: blur(28px) saturate(180%);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  border: 1px solid var(--shell-border);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.25);
+  max-width: calc(100vw - 24px);
+  overflow-x: auto;
+}
+
+.nav-pill-link {
+  text-decoration: none;
+  color: var(--muted);
+  font: 600 13px/1 var(--font-body);
+  padding: 9px 15px;
+  border-radius: 999px;
+  white-space: nowrap;
+  transition: all 0.22s ease;
+}
+
+.nav-pill-link:hover, .nav-pill-link.active {
+  background: var(--pill-active-bg);
+  color: var(--pill-active-ink);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
+}
+
+.nav-pill-plus {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--l2);
+  color: #fff;
+  text-decoration: none;
+  font: 700 18px/1 var(--font-body);
+  margin-left: 4px;
+  flex: none;
+  box-shadow: 0 2px 10px color-mix(in srgb, var(--l2) 50%, transparent);
+}
+
+/* Adaptation mobile : masquer le dock latéral sur petits écrans */
+@media (max-width: 720px) {
+  .side-dock { display: none; }
+  .glass-shell { padding: 16px; border-radius: 26px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .banner[data-level="crit"] .dot { animation: none; }
+  .gauge .mark, .bar > span { transition: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- Barre supérieure flottante style visionOS -->
+<div class="top-glass-bar">
+  <div class="brand-pill">
+    <div class="brand-avatar">E</div>
+    <div class="brand-meta">
+      <span class="brand-title">Elkapø électrique</span>
+      <span class="brand-sub">Armoire triphasée · 230/400 V · 50 Hz</span>
+    </div>
+  </div>
+
+  <div class="top-actions">
+    <span class="pill">Données simulées</span>
+    <div class="theme-switch" role="group" aria-label="Sélecteur de thème">
+      <button type="button" class="theme-btn" id="btnLight" title="Thème clair">☀ Clair</button>
+      <button type="button" class="theme-btn" id="btnDark" title="Thème sombre">☾ Sombre</button>
+    </div>
+  </div>
+</div>
+
+<!-- Espace de travail principal avec dock latéral + panneau vitré -->
+<div class="workspace">
+  <aside class="side-dock" aria-label="Accès rapide">
+    <a href="#top-section" class="dock-item active" title="Vue d'ensemble">
+      <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+    </a>
+    <a href="#sec-phases" class="dock-item" title="Phases L1/L2/L3">
+      <svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+    </a>
+    <a href="#sec-chart" class="dock-item" title="Courbes de tension">
+      <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+    </a>
+    <a href="#sec-prot" class="dock-item" title="Protections & Thermique">
+      <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+    </a>
+    <a href="#sec-sim" class="dock-item" title="Simulateur de défauts">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+    </a>
+  </aside>
+
+  <main class="glass-shell" id="top-section">
+    <div class="wrap">
+      <header class="top">
+        <div>
+          <p class="eyebrow">Tableau de supervision · Temps réel</p>
+          <h1>État de l'installation</h1>
+        </div>
+      </header>
+
+      <section id="banner" class="banner" role="status" aria-live="polite" data-level="ok">
+        <span class="dot"></span>
+        <div>
+          <p class="b-title" id="bTitle">Réseau normal</p>
+          <p class="b-sub" id="bSub"></p>
+        </div>
+      </section>
+
+      <section id="sec-phases" aria-labelledby="h-ph">
+        <h2 id="h-ph">Phases</h2>
+        <div id="phases" class="phases"></div>
+      </section>
+
+      <section id="sec-chart" aria-labelledby="h-ch">
+        <h2 id="h-ch">Tensions, 60 dernières secondes</h2>
+        <div class="card">
+          <div class="chart" id="chart"></div>
+          <div class="legend">
+            <span style="--c: var(--l1)"><i></i>L1</span>
+            <span style="--c: var(--l2)"><i></i>L2</span>
+            <span style="--c: var(--l3)"><i></i>L3</span>
+            <span><i class="zone"></i>Plage admise 207 à 253 V</span>
+          </div>
+        </div>
+      </section>
+
+      <section id="sec-prot" aria-labelledby="h-pr">
+        <h2 id="h-pr">Protections</h2>
+        <div class="card"><ul class="rows" id="prot"></ul></div>
+      </section>
+
+      <section id="sec-temps" aria-labelledby="h-te">
+        <h2 id="h-te">Températures</h2>
+        <div class="card">
+          <ul class="rows" id="temps"></ul>
+          <p class="note">Alerte à 70 °C, coupure à 85 °C. Sondes DS18B20 sur les points chauds.</p>
+        </div>
+      </section>
+
+      <section id="sec-bal" aria-labelledby="h-eq">
+        <h2 id="h-eq">Équilibrage de phase</h2>
+        <div class="card">
+          <div class="bal-head">
+            <p id="balText"></p>
+            <span class="pill" id="balPill">Veille</span>
+          </div>
+          <ul class="rows" id="bal"></ul>
+          <p class="note">Un contacteur ne se ferme qu'après l'ouverture de l'autre. Verrouillage mécanique et électrique entre K1, K2 et K3.</p>
+        </div>
+      </section>
+
+      <section id="sec-sim" aria-labelledby="h-si">
+        <h2 id="h-si">Simulateur de défauts</h2>
+        <div class="card controls">
+          <fieldset>
+            <legend>Phase concernée</legend>
+            <div class="chips">
+              <label class="chip"><input type="radio" name="ph" id="ph1" value="0">L1</label>
+              <label class="chip"><input type="radio" name="ph" id="ph2" value="1" checked>L2</label>
+              <label class="chip"><input type="radio" name="ph" id="ph3" value="2">L3</label>
+            </div>
+          </fieldset>
+          <div class="btns">
+            <button type="button" id="bLoss">Couper la phase</button>
+            <button type="button" id="bOver">Surcharge</button>
+            <button type="button" id="bShort">Court-circuit</button>
+            <button type="button" id="bFire" class="danger">Incendie</button>
+          </div>
+          <button type="button" id="bReset" class="primary">Tout rétablir et réarmer</button>
+          <p class="note" style="margin-top:0">Les mesures sont fictives. Elles servent à valider l'affichage avant de brancher les vrais capteurs.</p>
+        </div>
+      </section>
+
+      <section id="sec-log" aria-labelledby="h-jo">
+        <h2 id="h-jo">Journal des événements</h2>
+        <div class="card"><ul class="log" id="log"></ul></div>
+      </section>
+    </div>
+  </main>
+</div>
+
+<!-- Barre inférieure flottante en pilule (Navigation rapide style visionOS) -->
+<nav class="bottom-pill-nav" aria-label="Navigation sections">
+  <a href="#sec-phases" class="nav-pill-link active">Phases</a>
+  <a href="#sec-chart" class="nav-pill-link">Tensions</a>
+  <a href="#sec-prot" class="nav-pill-link">Protections</a>
+  <a href="#sec-bal" class="nav-pill-link">Équilibrage</a>
+  <a href="#sec-log" class="nav-pill-link">Journal</a>
+  <a href="#sec-sim" class="nav-pill-plus" title="Simulateur de défauts">+</a>
+</nav>
+
+<script>
+/* Gestion du basculement de thème Clair / Sombre */
+(function () {
+  var root = document.documentElement;
+  var btnLight = document.getElementById('btnLight');
+  var btnDark = document.getElementById('btnDark');
+  var metaTheme = document.getElementById('metaThemeColor');
+
+  function applyTheme(mode) {
+    root.setAttribute('data-theme', mode);
+    localStorage.setItem('elkapo-theme', mode);
+    btnLight.classList.toggle('active', mode === 'light');
+    btnDark.classList.toggle('active', mode === 'dark');
+    if (metaTheme) metaTheme.setAttribute('content', mode === 'dark' ? '#0b1219' : '#d7dde2');
+  }
+
+  var saved = localStorage.getItem('elkapo-theme');
+  var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+  applyTheme(saved || (prefersDark ? 'dark' : 'light'));
+
+  btnLight.addEventListener('click', function () { applyTheme('light'); });
+  btnDark.addEventListener('click', function () { applyTheme('dark'); });
+
+  /* Mise à jour visuelle de l'élément actif dans les barres de navigation */
+  document.querySelectorAll('.nav-pill-link, .dock-item').forEach(function (link) {
+    link.addEventListener('click', function () {
+      var group = this.classList.contains('nav-pill-link') ? '.nav-pill-link' : '.dock-item';
+      document.querySelectorAll(group).forEach(function (el) { el.classList.remove('active'); });
+      this.classList.add('active');
+    });
+  });
+})();
+</script>
+
+<script>
+(function () {
+  var NOM = 230, LOW = 207, HIGH = 253, IN = 16, N = 60;
+  var CIR = [
+    { id: 'C1', name: 'Éclairage et prises', load: 5.5 },
+    { id: 'C2', name: 'Cuisine', load: 7.2 },
+    { id: 'C3', name: 'Climatisation', load: 8.4 }
+  ];
+  var PROBES = [
+    { name: 'Bornier d’entrée', k: 0.35 },
+    { name: 'Contacteurs', k: 0.5 },
+    { name: 'Jeu de barres', k: 0.65 }
+  ];
+  var $ = function (id) { return document.getElementById(id); };
+  var f = function (n, d) { return n.toFixed(d === undefined ? 1 : d).replace('.', ','); };
+  var rnd = function () { return Math.random() * 2 - 1; };
+  var L = function (p) { return 'L' + (p + 1); };
+
+  var s = {
+    lost: null, over: false, overPh: null, mag: null, therm: null, fire: false, open: false,
+    thermal: [0, 0, 0], warned: [false, false, false], assign: [0, 1, 2],
+    temp: [33, 36, 39], smoke: 118, spike: null, t: 0, sel: 1, log: [], hist: []
+  };
+
+  function log(level, text) {
+    var t = new Date().toLocaleTimeString('fr-FR', { hour12: false });
+    s.log.unshift({ t: t, level: level, text: text });
+    if (s.log.length > 40) s.log.pop();
+  }
+
+  function volts() {
+    return [0, 1, 2].map(function (p) {
+      if (s.lost === p) return 0;
+      return [229, 231, 228][p] + 2 * Math.sin(s.t / 9 + p * 2.1) + rnd() * 0.7;
+    });
+  }
+
+  function currents() {
+    return [0, 1, 2].map(function (p) {
+      if (s.open || s.lost === p) return 0;
+      var a = 0;
+      CIR.forEach(function (c, i) { if (s.assign[i] === p) a += c.load; });
+      if (s.over && s.overPh === p) a += 14;
+      return a * (0.97 + Math.random() * 0.06);
+    });
+  }
+
+  function rebalance() {
+    if (s.lost === null) { s.assign = [0, 1, 2]; return null; }
+    var healthy = [0, 1, 2].filter(function (p) { return p !== s.lost; });
+    healthy.sort(function (a, b) { return CIR[a].load - CIR[b].load; });
+    var target = healthy[0];
+    s.assign = [0, 1, 2].map(function (c) { return c === s.lost ? target : c; });
+    return target;
+  }
+
+  function step() {
+    s.t++;
+    var V = volts();
+    var A = currents();
+
+    if (s.spike !== null) { A[s.spike] = 186 + rnd() * 6; s.spike = null; }
+
+    for (var p = 0; p < 3; p++) {
+      if (!s.open && A[p] > IN) {
+        s.thermal[p] += (Math.pow(A[p] / IN, 2) - 1) * 10;
+      } else {
+        s.thermal[p] -= s.open ? 6 : 2.5;
+      }
+      s.thermal[p] = Math.min(100, Math.max(0, s.thermal[p]));
+      if (s.thermal[p] < 50) s.warned[p] = false;
+      if (!s.open && s.thermal[p] >= 70 && !s.warned[p]) {
+        s.warned[p] = true;
+        log('warn', 'Échauffement sur ' + L(p) + ' : image thermique à ' + Math.round(s.thermal[p]) + ' %.');
+      }
+      if (!s.open && s.thermal[p] >= 100 && s.therm === null) {
+        s.therm = p;
+        s.open = true;
+        log('crit', 'Déclenchement thermique sur ' + L(p) + '. Disjoncteur général ouvert.');
+        A = [0, 0, 0];
+        break;
+      }
+    }
+
+    var tot = A.reduce(function (a, b) { return a + b; }, 0);
+    if (tot > 60) tot = 0;
+    PROBES.forEach(function (pr, i) {
+      var tg = 31 + pr.k * tot + (s.fire ? [40, 55, 64][i] : 0);
+      s.temp[i] += (tg - s.temp[i]) * 0.12 + rnd() * 0.15;
+    });
+    s.smoke += ((s.fire ? 650 : 118) - s.smoke) * 0.2 + rnd() * 2;
+
+    s.hist.push(V);
+    if (s.hist.length > N) s.hist.shift();
+
+    render(V, A);
+  }
+
+  /* ---------- Rendu ---------- */
+  var phaseEls = [0, 1, 2].map(function (i) {
+    var el = document.createElement('article');
+    el.className = 'card phase';
+    el.style.setProperty('--pc', 'var(--l' + (i + 1) + ')');
+    el.innerHTML =
+      '<div class="ph-head"><span class="ph-tag">' + L(i) + '</span><span class="pill" data-role="state"></span></div>' +
+      '<div class="ph-vals">' +
+        '<div><span class="lbl">Tension</span><span class="num"><b data-role="v">0</b><i>V</i></span></div>' +
+        '<div><span class="lbl">Courant</span><span class="num"><b data-role="a">0</b><i>A</i></span></div>' +
+      '</div>' +
+      '<div><div class="gauge"><span class="band"></span><span class="mark" data-role="mark"></span></div>' +
+      '<div class="gscale"><span style="left:0;transform:none">160</span><span style="left:47%">207</span><span style="left:93%">253</span></div></div>' +
+      '<p class="ph-feeds" data-role="feeds"></p>';
+    $('phases').appendChild(el);
+    return el;
+  });
+  var q = function (el, role) { return el.querySelector('[data-role="' + role + '"]'); };
+
+  function vState(v) {
+    if (v < 50) return ['crit', 'Absente'];
+    if (v < LOW) return ['warn', 'Basse'];
+    if (v > HIGH) return ['warn', 'Haute'];
+    return ['ok', 'Normale'];
+  }
+
+  function renderPhases(V, A) {
+    phaseEls.forEach(function (el, p) {
+      var st = vState(V[p]);
+      var pill = q(el, 'state');
+      pill.dataset.level = st[0];
+      pill.textContent = st[1];
+      q(el, 'v').textContent = f(V[p]);
+      var a = q(el, 'a');
+      a.textContent = f(A[p]);
+      a.style.color = A[p] > 100 ? 'var(--crit)' : (A[p] > IN ? 'var(--warn)' : '');
+      var pos = Math.min(100, Math.max(0, (V[p] - 160) / 100 * 100));
+      var mark = q(el, 'mark');
+      mark.style.left = pos + '%';
+      mark.style.opacity = V[p] < 50 ? 0.35 : 1;
+      var ids = CIR.filter(function (c, i) { return s.assign[i] === p; }).map(function (c) { return c.id; });
+      var txt;
+      if (s.open) txt = 'Sortie coupée';
+      else if (!ids.length) txt = s.lost === p ? 'Phase absente · aucune charge' : 'Aucune charge';
+      else txt = 'Alimente ' + ids.join(' + ') + (ids.length > 1 ? ' (transfert)' : '');
+      q(el, 'feeds').textContent = txt;
+    });
+  }
+
+  function renderBanner() {
+    var b = $('banner'), lvl = 'ok', title, sub;
+    var maxTh = Math.max.apply(null, s.thermal), iTh = s.thermal.indexOf(maxTh);
+    if (s.fire) {
+      lvl = 'crit'; title = 'Coupure incendie';
+      sub = 'Flamme détectée. L’alimentation générale est ouverte. Le réarmement reste manuel, après vérification sur place.';
+    } else if (s.mag !== null) {
+      lvl = 'crit'; title = 'Déclenchement magnétique sur ' + L(s.mag);
+      sub = 'Court-circuit détecté, disjoncteur général ouvert. Chercher le défaut avant de réarmer.';
+    } else if (s.therm !== null) {
+      lvl = 'crit'; title = 'Déclenchement thermique sur ' + L(s.therm);
+      sub = 'Surcharge prolongée, disjoncteur général ouvert. Réduire la charge avant de réarmer.';
+    } else if (s.lost !== null) {
+      lvl = 'warn'; title = 'Perte de phase ' + L(s.lost);
+      sub = 'Équilibrage actif : ' + CIR[s.lost].id + ' alimenté par ' + L(s.assign[s.lost]) + '. Charges triphasées coupées.';
+    } else if (s.over) {
+      lvl = 'warn'; title = 'Surcharge sur ' + L(s.overPh);
+      sub = 'Image thermique à ' + Math.round(maxTh) + ' % sur ' + L(iTh) + '. Déclenchement à 100 %.';
+    } else {
+      title = 'Réseau normal';
+      sub = 'Trois phases présentes, tensions entre 207 et 253 V. Aucune alarme.';
+    }
+    b.dataset.level = lvl;
+    $('bTitle').textContent = title;
+    $('bSub').textContent = sub;
+  }
+
+  function renderChart() {
+    var W = 400, H = 210, Lm = 32, R = 12, T = 12, B = 24;
+    var x = function (i) { return Lm + (W - Lm - R) * i / (N - 1); };
+    var y = function (v) { return T + (H - T - B) * (1 - Math.min(260, Math.max(0, v)) / 260); };
+    var g = '';
+    g += '<rect class="c-band" x="' + Lm + '" y="' + y(253).toFixed(1) + '" width="' + (W - Lm - R) + '" height="' + (y(207) - y(253)).toFixed(1) + '"/>';
+    [0, 100, 200].forEach(function (v) {
+      g += '<line class="c-grid" x1="' + Lm + '" x2="' + (W - R) + '" y1="' + y(v).toFixed(1) + '" y2="' + y(v).toFixed(1) + '"/>';
+      g += '<text x="' + (Lm - 6) + '" y="' + (y(v) + 3.5).toFixed(1) + '" text-anchor="end">' + v + '</text>';
+    });
+    g += '<line class="c-nom" x1="' + Lm + '" x2="' + (W - R) + '" y1="' + y(NOM).toFixed(1) + '" y2="' + y(NOM).toFixed(1) + '"/>';
+    g += '<text x="' + (Lm - 6) + '" y="' + (y(NOM) + 3.5).toFixed(1) + '" text-anchor="end">230</text>';
+    g += '<text x="' + Lm + '" y="' + (H - 6) + '">−60 s</text>';
+    g += '<text x="' + x(30).toFixed(1) + '" y="' + (H - 6) + '" text-anchor="middle">−30 s</text>';
+    g += '<text x="' + (W - R) + '" y="' + (H - 6) + '" text-anchor="end">maintenant</text>';
+    var widths = [3.4, 2.2, 1.2];
+    [0, 1, 2].forEach(function (p) {
+      var pts = s.hist.map(function (h, i) {
+        var off = N - s.hist.length;
+        return x(i + off).toFixed(1) + ',' + y(h[p]).toFixed(1);
+      }).join(' ');
+      g += '<polyline points="' + pts + '" fill="none" stroke="var(--l' + (p + 1) + ')" stroke-width="' + widths[p] + '" stroke-linejoin="round" stroke-linecap="round"/>';
+    });
+    var last = s.hist[s.hist.length - 1];
+    [0, 1, 2].forEach(function (p) {
+      g += '<circle cx="' + x(N - 1).toFixed(1) + '" cy="' + y(last[p]).toFixed(1) + '" r="' + (4.2 - p) + '" fill="var(--l' + (p + 1) + ')"/>';
+    });
+    $('chart').innerHTML = '<svg viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="Courbes de tension des trois phases sur 60 secondes">' + g + '</svg>';
+  }
+
+  function row(name, sub, lvl, label) {
+    return '<li><div><p class="r-name">' + name + '</p><p class="r-sub">' + sub + '</p></div><span class="pill" data-level="' + lvl + '">' + label + '</span></li>';
+  }
+
+  function renderProt() {
+    var maxTh = Math.max.apply(null, s.thermal), iTh = s.thermal.indexOf(maxTh);
+    var cause = s.fire ? 'incendie' : (s.mag !== null ? 'magnétique' : (s.therm !== null ? 'thermique' : ''));
+    var h = '';
+    h += row('Disjoncteur général', s.open ? 'Coupure ' + cause : 'Tripolaire + neutre, 16 A', s.open ? 'crit' : 'ok', s.open ? 'Ouvert' : 'Fermé');
+    var th = s.therm !== null ? ['crit', 'Déclenchée'] : (maxTh >= 70 ? ['warn', 'Échauffement'] : ['ok', 'Normale']);
+    h += row('Protection thermique', 'Image thermique max. ' + Math.round(maxTh) + ' % (' + L(iTh) + ')', th[0], th[1]);
+    h += row('Protection magnétique', s.mag !== null ? 'Court-circuit sur ' + L(s.mag) + ', 186 A' : 'Courbe C, 5 à 10 × In', s.mag !== null ? 'crit' : 'ok', s.mag !== null ? 'Déclenchée' : 'Armée');
+    var fi = s.fire ? ['crit', 'Flamme'] : (s.smoke > 400 ? ['warn', 'Fumée'] : ['ok', 'Aucune alerte']);
+    h += row('Détection incendie', 'Flamme : ' + (s.fire ? 'oui' : 'non') + ' · fumée MQ-2 : ' + Math.round(s.smoke) + ' ppm', fi[0], fi[1]);
+    $('prot').innerHTML = h;
+  }
+
+  function renderTemps() {
+    var lv = function (t) { return t >= 85 ? 'crit' : (t >= 70 ? 'warn' : 'ok'); };
+    $('temps').innerHTML = PROBES.map(function (pr, i) {
+      var t = s.temp[i];
+      var pct = Math.min(100, Math.max(0, (t - 20) / 80 * 100));
+      return '<li class="temp"><div class="t-row"><span class="r-name">' + pr.name + '</span><span class="t-val">' + f(t) + ' °C</span></div>' +
+        '<div class="bar" data-level="' + lv(t) + '"><span style="width:' + pct.toFixed(1) + '%"></span><i class="tick" style="left:62.5%"></i><i class="tick" style="left:81.25%"></i></div></li>';
+    }).join('');
+  }
+
+  function renderBalance() {
+    var active = s.lost !== null;
+    var pill = $('balPill');
+    pill.dataset.level = active ? 'warn' : 'ok';
+    pill.textContent = active ? 'Actif' : 'Veille';
+    $('balText').textContent = active
+      ? L(s.lost) + ' absente. Le circuit ' + CIR[s.lost].id + ' est repris par ' + L(s.assign[s.lost]) + ', la phase la moins chargée.'
+      : 'Chaque circuit est alimenté par sa propre phase. L’équilibrage se déclenche à la perte d’une phase.';
+    $('bal').innerHTML = CIR.map(function (c, i) {
+      var moved = s.assign[i] !== i;
+      var route = s.open
+        ? '<span class="route"><em>Coupé</em></span>'
+        : '<span class="route">' + (moved ? '<span class="moved">' + L(i) + ' → ' + L(s.assign[i]) + '</span>' : L(i)) + '</span>';
+      return '<li><div><p class="r-name">' + c.id + ' · ' + c.name + '</p><p class="r-sub">' + f(c.load) + ' A nominal</p></div>' + route + '</li>';
+    }).join('');
+  }
+
+  function renderControls() {
+    $('bLoss').textContent = s.lost === null ? 'Couper la phase ' + L(s.sel) : 'Rétablir la phase ' + L(s.lost);
+    $('bOver').textContent = s.over ? 'Fin de la surcharge' : 'Surcharge sur ' + L(s.sel);
+    $('bShort').textContent = 'Court-circuit sur ' + L(s.sel);
+    $('bOver').disabled = s.open;
+    $('bShort').disabled = s.open;
+    $('bFire').disabled = s.fire;
+  }
+
+  function renderLog() {
+    $('log').innerHTML = s.log.map(function (e) {
+      return '<li data-level="' + e.level + '"><i class="lv"></i><time>' + e.t + '</time><span>' + e.text + '</span></li>';
+    }).join('');
+  }
+
+  function render(V, A) {
+    renderBanner();
+    renderPhases(V, A);
+    renderChart();
+    renderProt();
+    renderTemps();
+    renderBalance();
+    renderControls();
+    renderLog();
+  }
+
+  /* ---------- Simulateur ---------- */
+  document.querySelectorAll('input[name="ph"]').forEach(function (r) {
+    r.addEventListener('change', function () { s.sel = Number(r.value); step(); });
+  });
+
+  $('bLoss').addEventListener('click', function () {
+    if (s.lost === null) {
+      s.lost = s.sel;
+      var target = rebalance();
+      log('warn', 'Perte de phase ' + L(s.lost) + ' (0 V). ' + CIR[s.lost].id + ' basculé sur ' + L(target) + ', charges triphasées coupées.');
+      log('info', 'Verrouillage K' + (s.lost + 1) + '/K' + (target + 1) + ' vérifié avant fermeture.');
+    } else {
+      var p = s.lost;
+      s.lost = null;
+      rebalance();
+      log('ok', 'Phase ' + L(p) + ' revenue. Retour à la configuration normale.');
+    }
+    step();
+  });
+
+  $('bOver').addEventListener('click', function () {
+    if (!s.over) {
+      s.over = true; s.overPh = s.sel;
+      log('warn', 'Surcharge simulée sur ' + L(s.sel) + ' : courant au-dessus de 16 A.');
+    } else {
+      s.over = false;
+      log('info', 'Fin de la surcharge simulée.');
+    }
+    step();
+  });
+
+  $('bShort').addEventListener('click', function () {
+    if (s.open) return;
+    s.mag = s.sel; s.open = true; s.spike = s.sel;
+    log('crit', 'Court-circuit sur ' + L(s.sel) + ' : 186 A. Déclenchement magnétique, disjoncteur général ouvert.');
+    step();
+  });
+
+  $('bFire').addEventListener('click', function () {
+    if (s.fire) return;
+    s.fire = true; s.open = true;
+    log('crit', 'Flamme détectée. Coupure générale immédiate.');
+    step();
+  });
+
+  $('bReset').addEventListener('click', function () {
+    s.lost = null; s.over = false; s.overPh = null; s.mag = null; s.therm = null;
+    s.fire = false; s.open = false; s.thermal = [0, 0, 0]; s.warned = [false, false, false];
+    s.assign = [0, 1, 2]; s.spike = null;
+    log('ok', 'Réarmement manuel effectué. Disjoncteur général fermé.');
+    step();
+  });
+
+  /* ---------- Démarrage ---------- */
+  for (var k = 0; k < N; k++) { s.t++; s.hist.push(volts()); }
+  log('ok', 'Trois phases présentes, tensions dans la plage.');
+  log('info', 'Simulation démarrée. Les mesures sont fictives.');
+  step();
+  setInterval(step, 1000);
+})();
+</script>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function () {
+    navigator.serviceWorker.register('sw.js').catch(function () {});
+  });
+}
+</script>
+</body>
+</html>
